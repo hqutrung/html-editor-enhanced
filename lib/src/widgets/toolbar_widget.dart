@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -397,34 +395,35 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                             widget.htmlToolbarOptions.gridViewHorizontalSpacing,
                         children: _buildChildren()
                           ..insert(
-                              0,
-                              Container(
-                                height:
-                                    widget.htmlToolbarOptions.toolbarItemHeight,
-                                child: IconButton(
-                                  icon: Icon(
-                                    _isExpanded
-                                        ? Icons.expand_less
-                                        : Icons.expand_more,
-                                    color: Colors.grey,
-                                  ),
-                                  onPressed: () async {
-                                    setState(mounted, this.setState, () {
-                                      _isExpanded = !_isExpanded;
-                                    });
-                                    await Future.delayed(
-                                        Duration(milliseconds: 100));
-                                    if (kIsWeb) {
-                                      widget.controller.recalculateHeight();
-                                    } else {
-                                      await widget.controller.editorController!
-                                          .evaluateJavascript(
-                                              source:
-                                                  "var height = \$('div.note-editable').outerHeight(true); window.flutter_inappwebview.callHandler('setHeight', height);");
-                                    }
-                                  },
+                            0,
+                            Container(
+                              height:
+                                  widget.htmlToolbarOptions.toolbarItemHeight,
+                              child: IconButton(
+                                icon: Icon(
+                                  _isExpanded
+                                      ? Icons.expand_less
+                                      : Icons.expand_more,
+                                  color: Colors.grey,
                                 ),
-                              )),
+                                onPressed: () async {
+                                  setState(mounted, this.setState, () {
+                                    _isExpanded = !_isExpanded;
+                                  });
+                                  await Future.delayed(
+                                      Duration(milliseconds: 100));
+                                  if (kIsWeb) {
+                                    widget.controller.recalculateHeight();
+                                  } else {
+                                    await widget.controller.editorController!
+                                        .evaluateJavascript(
+                                            source:
+                                                "var height = \$('div.note-editable').outerHeight(true); window.flutter_inappwebview.callHandler('setHeight', height);");
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
                       ),
                     )
                   : Padding(
@@ -481,12 +480,14 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
               ? null
               : widget.htmlToolbarOptions.dropdownBoxDecoration ??
                   BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      border: Border.all(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withOpacity(0.12))),
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    border: Border.all(
+                      color:
+                          Theme.of(context).colorScheme.onSurface.withOpacity(
+                                0.12,
+                              ),
+                    ),
+                  ),
           child: CustomDropdownButtonHideUnderline(
             child: CustomDropdownButton<String>(
               elevation: widget.htmlToolbarOptions.dropdownElevation,
@@ -506,74 +507,125 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
               style: widget.htmlToolbarOptions.textStyle,
               items: [
                 CustomDropdownMenuItem(
-                    value: 'p',
-                    child: PointerInterceptor(child: Text('Normal'))),
+                  value: 'p',
+                  child: PointerInterceptor(
+                    child: Text(
+                      'Normal',
+                    ),
+                  ),
+                ),
                 CustomDropdownMenuItem(
-                    value: 'blockquote',
-                    child: PointerInterceptor(
-                      child: Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  left: BorderSide(
-                                      color: Colors.grey, width: 3.0))),
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text('Quote',
-                              style: TextStyle(
-                                  fontFamily: 'times', color: Colors.grey))),
-                    )),
+                  value: 'blockquote',
+                  child: PointerInterceptor(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          left: BorderSide(
+                            color: Colors.grey,
+                            width: 3.0,
+                          ),
+                        ),
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Text(
+                        'Quote',
+                        style: TextStyle(
+                          fontFamily: 'times',
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 CustomDropdownMenuItem(
-                    value: 'pre',
-                    child: PointerInterceptor(
-                      child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.grey),
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text('Code',
-                              style: TextStyle(
-                                  fontFamily: 'courier', color: Colors.white))),
-                    )),
+                  value: 'pre',
+                  child: PointerInterceptor(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.grey),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Text(
+                        'Code',
+                        style: TextStyle(
+                          fontFamily: 'courier',
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 CustomDropdownMenuItem(
                   value: 'h1',
                   child: PointerInterceptor(
-                      child: Text('Header 1',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 32))),
+                    child: Text(
+                      'Header 1',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
                 ),
                 CustomDropdownMenuItem(
                   value: 'h2',
                   child: PointerInterceptor(
-                      child: Text('Header 2',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 24))),
+                    child: Text(
+                      'Header 2',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      ),
+                    ),
+                  ),
                 ),
                 CustomDropdownMenuItem(
                   value: 'h3',
                   child: PointerInterceptor(
-                      child: Text('Header 3',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18))),
+                    child: Text(
+                      'Header 3',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
                 ),
                 CustomDropdownMenuItem(
                   value: 'h4',
                   child: PointerInterceptor(
-                      child: Text('Header 4',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16))),
+                    child: Text(
+                      'Header 4',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
                 ),
                 CustomDropdownMenuItem(
                   value: 'h5',
                   child: PointerInterceptor(
-                      child: Text('Header 5',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 13))),
+                    child: Text(
+                      'Header 5',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
                 ),
                 CustomDropdownMenuItem(
                   value: 'h6',
                   child: PointerInterceptor(
-                      child: Text('Header 6',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 11))),
+                    child: Text(
+                      'Header 6',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ),
                 ),
               ],
               value: _fontSelectedItem,
@@ -613,12 +665,14 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                 ? null
                 : widget.htmlToolbarOptions.dropdownBoxDecoration ??
                     BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        border: Border.all(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.12))),
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      border: Border.all(
+                        color:
+                            Theme.of(context).colorScheme.onSurface.withOpacity(
+                                  0.12,
+                                ),
+                      ),
+                    ),
             child: CustomDropdownButtonHideUnderline(
               child: CustomDropdownButton<String>(
                 elevation: widget.htmlToolbarOptions.dropdownElevation,
@@ -643,20 +697,35 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                   CustomDropdownMenuItem(
                     value: 'Courier New',
                     child: PointerInterceptor(
-                        child: Text('Courier New',
-                            style: TextStyle(fontFamily: 'Courier'))),
+                      child: Text(
+                        'Courier New',
+                        style: TextStyle(
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 'sans-serif',
                     child: PointerInterceptor(
-                        child: Text('Sans Serif',
-                            style: TextStyle(fontFamily: 'sans-serif'))),
+                      child: Text(
+                        'Sans Serif',
+                        style: TextStyle(
+                          fontFamily: 'sans-serif',
+                        ),
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 'Times New Roman',
                     child: PointerInterceptor(
-                        child: Text('Times New Roman',
-                            style: TextStyle(fontFamily: 'Times'))),
+                      child: Text(
+                        'Times New Roman',
+                        style: TextStyle(
+                          fontFamily: 'Times',
+                        ),
+                      ),
+                    ),
                   ),
                 ],
                 value: _fontNameSelectedItem,
@@ -695,12 +764,14 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                 ? null
                 : widget.htmlToolbarOptions.dropdownBoxDecoration ??
                     BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        border: Border.all(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.12))),
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      border: Border.all(
+                        color:
+                            Theme.of(context).colorScheme.onSurface.withOpacity(
+                                  0.12,
+                                ),
+                      ),
+                    ),
             child: CustomDropdownButtonHideUnderline(
               child: CustomDropdownButton<double>(
                 elevation: widget.htmlToolbarOptions.dropdownElevation,
@@ -725,44 +796,58 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                   CustomDropdownMenuItem(
                     value: 1,
                     child: PointerInterceptor(
-                        child: Text(
-                            "${_fontSizeUnitSelectedItem == "px" ? "11" : "8"} $_fontSizeUnitSelectedItem")),
+                      child: Text(
+                        "${_fontSizeUnitSelectedItem == "px" ? "11" : "8"} $_fontSizeUnitSelectedItem",
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 2,
                     child: PointerInterceptor(
-                        child: Text(
-                            "${_fontSizeUnitSelectedItem == "px" ? "13" : "10"} $_fontSizeUnitSelectedItem")),
+                      child: Text(
+                        "${_fontSizeUnitSelectedItem == "px" ? "13" : "10"} $_fontSizeUnitSelectedItem",
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 3,
                     child: PointerInterceptor(
-                        child: Text(
-                            "${_fontSizeUnitSelectedItem == "px" ? "16" : "12"} $_fontSizeUnitSelectedItem")),
+                      child: Text(
+                        "${_fontSizeUnitSelectedItem == "px" ? "16" : "12"} $_fontSizeUnitSelectedItem",
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 4,
                     child: PointerInterceptor(
-                        child: Text(
-                            "${_fontSizeUnitSelectedItem == "px" ? "19" : "14"} $_fontSizeUnitSelectedItem")),
+                      child: Text(
+                        "${_fontSizeUnitSelectedItem == "px" ? "19" : "14"} $_fontSizeUnitSelectedItem",
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 5,
                     child: PointerInterceptor(
-                        child: Text(
-                            "${_fontSizeUnitSelectedItem == "px" ? "24" : "18"} $_fontSizeUnitSelectedItem")),
+                      child: Text(
+                        "${_fontSizeUnitSelectedItem == "px" ? "24" : "18"} $_fontSizeUnitSelectedItem",
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 6,
                     child: PointerInterceptor(
-                        child: Text(
-                            "${_fontSizeUnitSelectedItem == "px" ? "32" : "24"} $_fontSizeUnitSelectedItem")),
+                      child: Text(
+                        "${_fontSizeUnitSelectedItem == "px" ? "32" : "24"} $_fontSizeUnitSelectedItem",
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 7,
                     child: PointerInterceptor(
-                        child: Text(
-                            "${_fontSizeUnitSelectedItem == "px" ? "48" : "36"} $_fontSizeUnitSelectedItem")),
+                      child: Text(
+                        "${_fontSizeUnitSelectedItem == "px" ? "48" : "36"} $_fontSizeUnitSelectedItem",
+                      ),
+                    ),
                   ),
                 ],
                 value: _fontSizeSelectedItem,
@@ -825,12 +910,14 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                 ? null
                 : widget.htmlToolbarOptions.dropdownBoxDecoration ??
                     BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        border: Border.all(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.12))),
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      border: Border.all(
+                        color:
+                            Theme.of(context).colorScheme.onSurface.withOpacity(
+                                  0.12,
+                                ),
+                      ),
+                    ),
             child: CustomDropdownButtonHideUnderline(
               child: CustomDropdownButton<String>(
                 elevation: widget.htmlToolbarOptions.dropdownElevation,
@@ -854,11 +941,19 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                 items: [
                   CustomDropdownMenuItem(
                     value: 'pt',
-                    child: PointerInterceptor(child: Text('pt')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        'pt',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 'px',
-                    child: PointerInterceptor(child: Text('px')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        'px',
+                      ),
+                    ),
                   ),
                 ],
                 value: _fontSizeUnitSelectedItem,
@@ -1149,32 +1244,33 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                               child: Text('Cancel'),
                             ),
                             TextButton(
-                                onPressed: () {
-                                  if (t.getIcons()[index].icon ==
-                                      Icons.format_color_text) {
-                                    setState(mounted, this.setState, () {
-                                      _foreColorSelected = Colors.black;
-                                    });
-                                    widget.controller.execCommand(
-                                        'removeFormat',
-                                        argument: 'foreColor');
-                                    widget.controller.execCommand('foreColor',
-                                        argument: 'initial');
-                                  }
-                                  if (t.getIcons()[index].icon ==
-                                      Icons.format_color_fill) {
-                                    setState(mounted, this.setState, () {
-                                      _backColorSelected = Colors.yellow;
-                                    });
-                                    widget.controller.execCommand(
-                                        'removeFormat',
-                                        argument: 'hiliteColor');
-                                    widget.controller.execCommand('hiliteColor',
-                                        argument: 'initial');
-                                  }
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text('Reset to default color')),
+                              onPressed: () {
+                                if (t.getIcons()[index].icon ==
+                                    Icons.format_color_text) {
+                                  setState(mounted, this.setState, () {
+                                    _foreColorSelected = Colors.black;
+                                  });
+                                  widget.controller.execCommand('removeFormat',
+                                      argument: 'foreColor');
+                                  widget.controller.execCommand('foreColor',
+                                      argument: 'initial');
+                                }
+                                if (t.getIcons()[index].icon ==
+                                    Icons.format_color_fill) {
+                                  setState(mounted, this.setState, () {
+                                    _backColorSelected = Colors.yellow;
+                                  });
+                                  widget.controller.execCommand('removeFormat',
+                                      argument: 'hiliteColor');
+                                  widget.controller.execCommand('hiliteColor',
+                                      argument: 'initial');
+                                }
+                                Navigator.of(context).pop();
+                              },
+                              child: Text(
+                                'Reset to default color',
+                              ),
+                            ),
                             TextButton(
                               onPressed: () {
                                 if (t.getIcons()[index].icon ==
@@ -1279,12 +1375,14 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                 ? null
                 : widget.htmlToolbarOptions.dropdownBoxDecoration ??
                     BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        border: Border.all(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.12))),
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      border: Border.all(
+                        color:
+                            Theme.of(context).colorScheme.onSurface.withOpacity(
+                                  0.12,
+                                ),
+                      ),
+                    ),
             child: CustomDropdownButtonHideUnderline(
               child: CustomDropdownButton<String>(
                 elevation: widget.htmlToolbarOptions.dropdownElevation,
@@ -1308,35 +1406,67 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                 items: [
                   CustomDropdownMenuItem(
                     value: 'decimal',
-                    child: PointerInterceptor(child: Text('1. Numbered')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        '1. Numbered',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 'lower-alpha',
-                    child: PointerInterceptor(child: Text('a. Lower Alpha')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        'a. Lower Alpha',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 'upper-alpha',
-                    child: PointerInterceptor(child: Text('A. Upper Alpha')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        'A. Upper Alpha',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 'lower-roman',
-                    child: PointerInterceptor(child: Text('i. Lower Roman')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        'i. Lower Roman',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 'upper-roman',
-                    child: PointerInterceptor(child: Text('I. Upper Roman')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        'I. Upper Roman',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 'disc',
-                    child: PointerInterceptor(child: Text('• Disc')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        '• Disc',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 'circle',
-                    child: PointerInterceptor(child: Text('○ Circle')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        '○ Circle',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 'square',
-                    child: PointerInterceptor(child: Text('■ Square')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        '■ Square',
+                      ),
+                    ),
                   ),
                 ],
                 hint: Text('Select list style'),
@@ -1501,12 +1631,14 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                 ? null
                 : widget.htmlToolbarOptions.dropdownBoxDecoration ??
                     BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        border: Border.all(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.12))),
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      border: Border.all(
+                        color:
+                            Theme.of(context).colorScheme.onSurface.withOpacity(
+                                  0.12,
+                                ),
+                      ),
+                    ),
             child: CustomDropdownButtonHideUnderline(
               child: CustomDropdownButton<double>(
                 elevation: widget.htmlToolbarOptions.dropdownElevation,
@@ -1529,33 +1661,69 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                 style: widget.htmlToolbarOptions.textStyle,
                 items: [
                   CustomDropdownMenuItem(
-                      value: 1, child: PointerInterceptor(child: Text('1.0'))),
+                    value: 1,
+                    child: PointerInterceptor(
+                      child: Text(
+                        '1.0',
+                      ),
+                    ),
+                  ),
                   CustomDropdownMenuItem(
                     value: 1.2,
-                    child: PointerInterceptor(child: Text('1.2')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        '1.2',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 1.4,
-                    child: PointerInterceptor(child: Text('1.4')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        '1.4',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 1.5,
-                    child: PointerInterceptor(child: Text('1.5')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        '1.5',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 1.6,
-                    child: PointerInterceptor(child: Text('1.6')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        '1.6',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 1.8,
-                    child: PointerInterceptor(child: Text('1.8')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        '1.8',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 2,
-                    child: PointerInterceptor(child: Text('2.0')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        '2.0',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
-                      value: 3, child: PointerInterceptor(child: Text('3.0'))),
+                    value: 3,
+                    child: PointerInterceptor(
+                      child: Text(
+                        '3.0',
+                      ),
+                    ),
+                  ),
                 ],
                 value: _lineHeightSelectedItem,
                 onChanged: (double? changed) async {
@@ -1657,12 +1825,14 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                 ? null
                 : widget.htmlToolbarOptions.dropdownBoxDecoration ??
                     BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        border: Border.all(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.12))),
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      border: Border.all(
+                        color:
+                            Theme.of(context).colorScheme.onSurface.withOpacity(
+                                  0.12,
+                                ),
+                      ),
+                    ),
             child: CustomDropdownButtonHideUnderline(
               child: CustomDropdownButton<String>(
                 elevation: widget.htmlToolbarOptions.dropdownElevation,
@@ -1686,19 +1856,35 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                 items: [
                   CustomDropdownMenuItem(
                     value: 'lower',
-                    child: PointerInterceptor(child: Text('lowercase')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        'lowercase',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 'sentence',
-                    child: PointerInterceptor(child: Text('Sentence case')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        'Sentence case',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 'title',
-                    child: PointerInterceptor(child: Text('Title Case')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        'Title Case',
+                      ),
+                    ),
                   ),
                   CustomDropdownMenuItem(
                     value: 'upper',
-                    child: PointerInterceptor(child: Text('UPPERCASE')),
+                    child: PointerInterceptor(
+                      child: Text(
+                        'UPPERCASE',
+                      ),
+                    ),
                   ),
                 ],
                 hint: Text('Change case'),
@@ -1758,7 +1944,8 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
               t.picture ||
               t.link ||
               t.hr ||
-              t.table)) {
+              t.table ||
+              t.code)) {
         toolbarChildren.add(ToggleButtons(
           constraints: BoxConstraints.tightFor(
             width: widget.htmlToolbarOptions.toolbarItemHeight - 2,
@@ -1805,9 +1992,12 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Text to display',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
+                                    Text(
+                                      'Text to display',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     SizedBox(height: 10),
                                     TextField(
                                       controller: text,
@@ -1822,9 +2012,12 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                       },
                                     ),
                                     SizedBox(height: 20),
-                                    Text('URL',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
+                                    Text(
+                                      'URL',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     SizedBox(height: 10),
                                     TextFormField(
                                       controller: url,
@@ -1868,12 +2061,15 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                               openNewTab = !openNewTab;
                                             });
                                           },
-                                          child: Text('Open in new window',
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText1
-                                                      ?.color)),
+                                          child: Text(
+                                            'Open in new window',
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  ?.color,
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -1925,10 +2121,8 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                       ?.call(ButtonType.picture, null, null) ??
                   true;
               if (proceed) {
-                final filename = TextEditingController();
                 final url = TextEditingController();
                 final urlFocus = FocusNode();
-                FilePickerResult? result;
                 String? validateFailed;
                 await showDialog(
                     context: context,
@@ -1943,77 +2137,13 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  if (widget
-                                      .htmlToolbarOptions.allowImagePicking)
-                                    Text('Select from files',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                  if (widget
-                                      .htmlToolbarOptions.allowImagePicking)
-                                    SizedBox(height: 10),
-                                  if (widget
-                                      .htmlToolbarOptions.allowImagePicking)
-                                    TextFormField(
-                                        controller: filename,
-                                        readOnly: true,
-                                        decoration: InputDecoration(
-                                          prefixIcon: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    Theme.of(context)
-                                                        .dialogBackgroundColor,
-                                                padding: EdgeInsets.only(
-                                                    left: 5, right: 5),
-                                                elevation: 0.0),
-                                            onPressed: () async {
-                                              result = await FilePicker.platform
-                                                  .pickFiles(
-                                                type: FileType.image,
-                                                withData: true,
-                                                allowedExtensions: widget
-                                                    .htmlToolbarOptions
-                                                    .imageExtensions,
-                                              );
-                                              if (result?.files.single.name !=
-                                                  null) {
-                                                setState(() {
-                                                  filename.text =
-                                                      result!.files.single.name;
-                                                });
-                                              }
-                                            },
-                                            child: Text('Choose image',
-                                                style: TextStyle(
-                                                    color: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText1
-                                                        ?.color)),
-                                          ),
-                                          suffixIcon: result != null
-                                              ? IconButton(
-                                                  icon: Icon(Icons.close),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      result = null;
-                                                      filename.text = '';
-                                                    });
-                                                  })
-                                              : Container(height: 0, width: 0),
-                                          errorText: validateFailed,
-                                          errorMaxLines: 2,
-                                          border: InputBorder.none,
-                                        )),
-                                  if (widget
-                                      .htmlToolbarOptions.allowImagePicking)
-                                    SizedBox(height: 20),
-                                  if (widget
-                                      .htmlToolbarOptions.allowImagePicking)
-                                    Text('URL',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                  if (widget
-                                      .htmlToolbarOptions.allowImagePicking)
-                                    SizedBox(height: 10),
+                                  Text(
+                                    'URL',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
                                   TextField(
                                     controller: url,
                                     focusNode: urlFocus,
@@ -2035,48 +2165,16 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                               ),
                               TextButton(
                                 onPressed: () async {
-                                  if (filename.text.isEmpty &&
-                                      url.text.isEmpty) {
-                                    setState(() {
-                                      validateFailed = widget.htmlToolbarOptions
-                                              .allowImagePicking
-                                          ? 'Please either choose an image or enter an image URL!'
-                                          : 'Please enter an image URL!';
-                                    });
-                                  } else if (filename.text.isNotEmpty &&
-                                      url.text.isNotEmpty) {
-                                    setState(() {
-                                      validateFailed =
-                                          'Please input either an image or an image URL, not both!';
-                                    });
-                                  } else if (filename.text.isNotEmpty &&
-                                      result?.files.single.bytes != null) {
-                                    var base64Data = base64
-                                        .encode(result!.files.single.bytes!);
-                                    var proceed = await widget
-                                            .htmlToolbarOptions
-                                            .mediaUploadInterceptor
-                                            ?.call(result!.files.single,
-                                                InsertFileType.image) ??
-                                        true;
-                                    if (proceed) {
-                                      widget.controller.insertHtml(
-                                          "<img src='data:image/${result!.files.single.extension};base64,$base64Data' data-filename='${result!.files.single.name}'/>");
-                                    }
-                                    Navigator.of(context).pop();
-                                  } else {
-                                    var proceed = await widget
-                                            .htmlToolbarOptions
-                                            .mediaLinkInsertInterceptor
-                                            ?.call(url.text,
-                                                InsertFileType.image) ??
-                                        true;
-                                    if (proceed) {
-                                      widget.controller
-                                          .insertNetworkImage(url.text);
-                                    }
-                                    Navigator.of(context).pop();
+                                  var proceed = await widget.htmlToolbarOptions
+                                          .mediaLinkInsertInterceptor
+                                          ?.call(
+                                              url.text, InsertFileType.image) ??
+                                      true;
+                                  if (proceed) {
+                                    widget.controller
+                                        .insertNetworkImage(url.text);
                                   }
+                                  Navigator.of(context).pop();
                                 },
                                 child: Text('OK'),
                               )
@@ -2092,10 +2190,8 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                       ?.call(ButtonType.audio, null, null) ??
                   true;
               if (proceed) {
-                final filename = TextEditingController();
                 final url = TextEditingController();
                 final urlFocus = FocusNode();
-                FilePickerResult? result;
                 String? validateFailed;
                 await showDialog(
                     context: context,
@@ -2107,79 +2203,29 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                             title: Text('Insert Audio'),
                             scrollable: true,
                             content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Select from files',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(height: 10),
-                                  TextFormField(
-                                      controller: filename,
-                                      readOnly: true,
-                                      decoration: InputDecoration(
-                                        prefixIcon: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              backgroundColor: Theme.of(context)
-                                                  .dialogBackgroundColor,
-                                              padding: EdgeInsets.only(
-                                                  left: 5, right: 5),
-                                              elevation: 0.0),
-                                          onPressed: () async {
-                                            result = await FilePicker.platform
-                                                .pickFiles(
-                                              type: FileType.audio,
-                                              withData: true,
-                                              allowedExtensions: widget
-                                                  .htmlToolbarOptions
-                                                  .audioExtensions,
-                                            );
-                                            if (result?.files.single.name !=
-                                                null) {
-                                              setState(() {
-                                                filename.text =
-                                                    result!.files.single.name;
-                                              });
-                                            }
-                                          },
-                                          child: Text('Choose audio',
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText1
-                                                      ?.color)),
-                                        ),
-                                        suffixIcon: result != null
-                                            ? IconButton(
-                                                icon: Icon(Icons.close),
-                                                onPressed: () {
-                                                  setState(() {
-                                                    result = null;
-                                                    filename.text = '';
-                                                  });
-                                                })
-                                            : Container(height: 0, width: 0),
-                                        errorText: validateFailed,
-                                        errorMaxLines: 2,
-                                        border: InputBorder.none,
-                                      )),
-                                  SizedBox(height: 20),
-                                  Text('URL',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(height: 10),
-                                  TextField(
-                                    controller: url,
-                                    focusNode: urlFocus,
-                                    textInputAction: TextInputAction.done,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: 'URL',
-                                      errorText: validateFailed,
-                                      errorMaxLines: 2,
-                                    ),
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'URL',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ]),
+                                ),
+                                SizedBox(height: 10),
+                                TextField(
+                                  controller: url,
+                                  focusNode: urlFocus,
+                                  textInputAction: TextInputAction.done,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: 'URL',
+                                    errorText: validateFailed,
+                                    errorMaxLines: 2,
+                                  ),
+                                ),
+                              ],
+                            ),
                             actions: [
                               TextButton(
                                 onPressed: () {
@@ -2189,46 +2235,16 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                               ),
                               TextButton(
                                 onPressed: () async {
-                                  if (filename.text.isEmpty &&
-                                      url.text.isEmpty) {
-                                    setState(() {
-                                      validateFailed =
-                                          'Please either choose an audio file or enter an audio file URL!';
-                                    });
-                                  } else if (filename.text.isNotEmpty &&
-                                      url.text.isNotEmpty) {
-                                    setState(() {
-                                      validateFailed =
-                                          'Please input either an audio file or an audio URL, not both!';
-                                    });
-                                  } else if (filename.text.isNotEmpty &&
-                                      result?.files.single.bytes != null) {
-                                    var base64Data = base64
-                                        .encode(result!.files.single.bytes!);
-                                    var proceed = await widget
-                                            .htmlToolbarOptions
-                                            .mediaUploadInterceptor
-                                            ?.call(result!.files.single,
-                                                InsertFileType.audio) ??
-                                        true;
-                                    if (proceed) {
-                                      widget.controller.insertHtml(
-                                          "<audio controls src='data:audio/${result!.files.single.extension};base64,$base64Data' data-filename='${result!.files.single.name}'></audio>");
-                                    }
-                                    Navigator.of(context).pop();
-                                  } else {
-                                    var proceed = await widget
-                                            .htmlToolbarOptions
-                                            .mediaLinkInsertInterceptor
-                                            ?.call(url.text,
-                                                InsertFileType.audio) ??
-                                        true;
-                                    if (proceed) {
-                                      widget.controller.insertHtml(
-                                          "<audio controls src='${url.text}'></audio>");
-                                    }
-                                    Navigator.of(context).pop();
+                                  var proceed = await widget.htmlToolbarOptions
+                                          .mediaLinkInsertInterceptor
+                                          ?.call(
+                                              url.text, InsertFileType.audio) ??
+                                      true;
+                                  if (proceed) {
+                                    widget.controller.insertHtml(
+                                        "<audio controls src='${url.text}'></audio>");
                                   }
+                                  Navigator.of(context).pop();
                                 },
                                 child: Text('OK'),
                               )
@@ -2244,10 +2260,8 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                       ?.call(ButtonType.video, null, null) ??
                   true;
               if (proceed) {
-                final filename = TextEditingController();
                 final url = TextEditingController();
                 final urlFocus = FocusNode();
-                FilePickerResult? result;
                 String? validateFailed;
                 await showDialog(
                     context: context,
@@ -2259,79 +2273,29 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                             title: Text('Insert Video'),
                             scrollable: true,
                             content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Select from files',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(height: 10),
-                                  TextFormField(
-                                      controller: filename,
-                                      readOnly: true,
-                                      decoration: InputDecoration(
-                                        prefixIcon: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              backgroundColor: Theme.of(context)
-                                                  .dialogBackgroundColor,
-                                              padding: EdgeInsets.only(
-                                                  left: 5, right: 5),
-                                              elevation: 0.0),
-                                          onPressed: () async {
-                                            result = await FilePicker.platform
-                                                .pickFiles(
-                                              type: FileType.video,
-                                              withData: true,
-                                              allowedExtensions: widget
-                                                  .htmlToolbarOptions
-                                                  .videoExtensions,
-                                            );
-                                            if (result?.files.single.name !=
-                                                null) {
-                                              setState(() {
-                                                filename.text =
-                                                    result!.files.single.name;
-                                              });
-                                            }
-                                          },
-                                          child: Text('Choose video',
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText1
-                                                      ?.color)),
-                                        ),
-                                        suffixIcon: result != null
-                                            ? IconButton(
-                                                icon: Icon(Icons.close),
-                                                onPressed: () {
-                                                  setState(() {
-                                                    result = null;
-                                                    filename.text = '';
-                                                  });
-                                                })
-                                            : Container(height: 0, width: 0),
-                                        errorText: validateFailed,
-                                        errorMaxLines: 2,
-                                        border: InputBorder.none,
-                                      )),
-                                  SizedBox(height: 20),
-                                  Text('URL',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(height: 10),
-                                  TextField(
-                                    controller: url,
-                                    focusNode: urlFocus,
-                                    textInputAction: TextInputAction.done,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: 'URL',
-                                      errorText: validateFailed,
-                                      errorMaxLines: 2,
-                                    ),
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'URL',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ]),
+                                ),
+                                SizedBox(height: 10),
+                                TextField(
+                                  controller: url,
+                                  focusNode: urlFocus,
+                                  textInputAction: TextInputAction.done,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: 'URL',
+                                    errorText: validateFailed,
+                                    errorMaxLines: 2,
+                                  ),
+                                ),
+                              ],
+                            ),
                             actions: [
                               TextButton(
                                 onPressed: () {
@@ -2341,46 +2305,80 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                               ),
                               TextButton(
                                 onPressed: () async {
-                                  if (filename.text.isEmpty &&
-                                      url.text.isEmpty) {
-                                    setState(() {
-                                      validateFailed =
-                                          'Please either choose a video or enter a video URL!';
-                                    });
-                                  } else if (filename.text.isNotEmpty &&
-                                      url.text.isNotEmpty) {
-                                    setState(() {
-                                      validateFailed =
-                                          'Please input either a video or a video URL, not both!';
-                                    });
-                                  } else if (filename.text.isNotEmpty &&
-                                      result?.files.single.bytes != null) {
-                                    var base64Data = base64
-                                        .encode(result!.files.single.bytes!);
-                                    var proceed = await widget
-                                            .htmlToolbarOptions
-                                            .mediaUploadInterceptor
-                                            ?.call(result!.files.single,
-                                                InsertFileType.video) ??
-                                        true;
-                                    if (proceed) {
-                                      widget.controller.insertHtml(
-                                          "<video controls src='data:video/${result!.files.single.extension};base64,$base64Data' data-filename='${result!.files.single.name}'></video>");
-                                    }
-                                    Navigator.of(context).pop();
-                                  } else {
-                                    var proceed = await widget
-                                            .htmlToolbarOptions
-                                            .mediaLinkInsertInterceptor
-                                            ?.call(url.text,
-                                                InsertFileType.video) ??
-                                        true;
-                                    if (proceed) {
-                                      widget.controller.insertHtml(
-                                          "<video controls src='${url.text}'></video>");
-                                    }
-                                    Navigator.of(context).pop();
+                                  var proceed = await widget.htmlToolbarOptions
+                                          .mediaLinkInsertInterceptor
+                                          ?.call(
+                                              url.text, InsertFileType.video) ??
+                                      true;
+                                  if (proceed) {
+                                    widget.controller.insertHtml(
+                                        "<iframe src='${url.text}'></iframe>");
                                   }
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text('OK'),
+                              )
+                            ],
+                          );
+                        }),
+                      );
+                    });
+              }
+            }
+            if (t.getIcons()[index].icon == Icons.code) {
+              var proceed = await widget.htmlToolbarOptions.onButtonPressed
+                      ?.call(ButtonType.code, null, null) ??
+                  true;
+              if (proceed) {
+                final url = TextEditingController();
+                final codeFocus = FocusNode();
+                String? validateFailed;
+                await showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return PointerInterceptor(
+                        child: StatefulBuilder(builder:
+                            (BuildContext context, StateSetter setState) {
+                          return AlertDialog(
+                            title: Text('Insert Code'),
+                            scrollable: true,
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Code',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                TextField(
+                                  controller: url,
+                                  focusNode: codeFocus,
+                                  maxLines: null,
+                                  minLines: 3,
+                                  textInputAction: TextInputAction.done,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: 'Code',
+                                    errorText: validateFailed,
+                                    errorMaxLines: 2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  widget.controller.insertHtml(url.text);
+                                  Navigator.of(context).pop();
                                 },
                                 child: Text('OK'),
                               )
@@ -2414,63 +2412,73 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Select from files',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
+                                  Text(
+                                    'Select from files',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                   SizedBox(height: 10),
                                   TextFormField(
-                                      controller: filename,
-                                      readOnly: true,
-                                      decoration: InputDecoration(
-                                        prefixIcon: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              backgroundColor: Theme.of(context)
-                                                  .dialogBackgroundColor,
-                                              padding: EdgeInsets.only(
-                                                  left: 5, right: 5),
-                                              elevation: 0.0),
-                                          onPressed: () async {
-                                            result = await FilePicker.platform
-                                                .pickFiles(
-                                              type: FileType.any,
-                                              withData: true,
-                                              allowedExtensions: widget
-                                                  .htmlToolbarOptions
-                                                  .otherFileExtensions,
-                                            );
-                                            if (result?.files.single.name !=
-                                                null) {
-                                              setState(() {
-                                                filename.text =
-                                                    result!.files.single.name;
-                                              });
-                                            }
-                                          },
-                                          child: Text('Choose file',
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText1
-                                                      ?.color)),
+                                    controller: filename,
+                                    readOnly: true,
+                                    decoration: InputDecoration(
+                                      prefixIcon: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Theme.of(context)
+                                                .dialogBackgroundColor,
+                                            padding: EdgeInsets.only(
+                                                left: 5, right: 5),
+                                            elevation: 0.0),
+                                        onPressed: () async {
+                                          result = await FilePicker.platform
+                                              .pickFiles(
+                                            type: FileType.any,
+                                            withData: true,
+                                            allowedExtensions: widget
+                                                .htmlToolbarOptions
+                                                .otherFileExtensions,
+                                          );
+                                          if (result?.files.single.name !=
+                                              null) {
+                                            setState(() {
+                                              filename.text =
+                                                  result!.files.single.name;
+                                            });
+                                          }
+                                        },
+                                        child: Text(
+                                          'Choose file',
+                                          style: TextStyle(
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1
+                                                ?.color,
+                                          ),
                                         ),
-                                        suffixIcon: result != null
-                                            ? IconButton(
-                                                icon: Icon(Icons.close),
-                                                onPressed: () {
-                                                  setState(() {
-                                                    result = null;
-                                                    filename.text = '';
-                                                  });
-                                                })
-                                            : Container(height: 0, width: 0),
-                                        errorText: validateFailed,
-                                        errorMaxLines: 2,
-                                        border: InputBorder.none,
-                                      )),
+                                      ),
+                                      suffixIcon: result != null
+                                          ? IconButton(
+                                              icon: Icon(Icons.close),
+                                              onPressed: () {
+                                                setState(() {
+                                                  result = null;
+                                                  filename.text = '';
+                                                });
+                                              })
+                                          : Container(height: 0, width: 0),
+                                      errorText: validateFailed,
+                                      errorMaxLines: 2,
+                                      border: InputBorder.none,
+                                    ),
+                                  ),
                                   SizedBox(height: 20),
-                                  Text('URL',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
+                                  Text(
+                                    'URL',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                   SizedBox(height: 10),
                                   TextField(
                                     controller: url,
@@ -2708,192 +2716,408 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                     rows: const <DataRow>[
                                       DataRow(
                                         cells: <DataCell>[
-                                          DataCell(Text('ESC')),
-                                          DataCell(Text('Escape')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('ENTER')),
-                                          DataCell(Text('Insert Paragraph')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+Z')),
                                           DataCell(
-                                              Text('Undo the last command')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+Z')),
+                                            Text(
+                                              'ESC',
+                                            ),
+                                          ),
                                           DataCell(
-                                              Text('Undo the last command')),
+                                            Text(
+                                              'Escape',
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       DataRow(
                                         cells: <DataCell>[
-                                          DataCell(Text('CTRL+Y')),
                                           DataCell(
-                                              Text('Redo the last command')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('TAB')),
-                                          DataCell(Text('Tab')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('SHIFT+TAB')),
-                                          DataCell(Text('Untab')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+B')),
-                                          DataCell(Text('Set a bold style')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+I')),
-                                          DataCell(Text('Set an italic style')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+U')),
+                                            Text(
+                                              'ENTER',
+                                            ),
+                                          ),
                                           DataCell(
-                                              Text('Set an underline style')),
+                                            Text(
+                                              'Insert Paragraph',
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       DataRow(
                                         cells: <DataCell>[
-                                          DataCell(Text('CTRL+SHIFT+S')),
-                                          DataCell(Text(
-                                              'Set a strikethrough style')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+BACKSLASH')),
-                                          DataCell(Text('Clean a style')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+SHIFT+L')),
-                                          DataCell(Text('Set left align')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+SHIFT+E')),
-                                          DataCell(Text('Set center align')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+SHIFT+R')),
-                                          DataCell(Text('Set right align')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+SHIFT+J')),
-                                          DataCell(Text('Set full align')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+SHIFT+NUM7')),
                                           DataCell(
-                                              Text('Toggle unordered list')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+SHIFT+NUM8')),
-                                          DataCell(Text('Toggle ordered list')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+LEFTBRACKET')),
-                                          DataCell(Text(
-                                              'Outdent on current paragraph')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+RIGHTBRACKET')),
-                                          DataCell(Text(
-                                              'Indent on current paragraph')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+NUM0')),
-                                          DataCell(Text(
-                                              'Change current block\'s format as a paragraph (<p> tag)')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+NUM1')),
-                                          DataCell(Text(
-                                              'Change current block\'s format as H1')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+NUM2')),
-                                          DataCell(Text(
-                                              'Change current block\'s format as H2')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+NUM3')),
-                                          DataCell(Text(
-                                              'Change current block\'s format as H3')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+NUM4')),
-                                          DataCell(Text(
-                                              'Change current block\'s format as H4')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+NUM5')),
-                                          DataCell(Text(
-                                              'Change current block\'s format as H5')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+NUM6')),
-                                          DataCell(Text(
-                                              'Change current block\'s format as H6')),
-                                        ],
-                                      ),
-                                      DataRow(
-                                        cells: <DataCell>[
-                                          DataCell(Text('CTRL+ENTER')),
+                                            Text(
+                                              'CTRL+Z',
+                                            ),
+                                          ),
                                           DataCell(
-                                              Text('Insert horizontal rule')),
+                                            Text(
+                                              'Undo the last command',
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       DataRow(
                                         cells: <DataCell>[
-                                          DataCell(Text('CTRL+K')),
-                                          DataCell(Text('Show link dialog')),
+                                          DataCell(
+                                            Text(
+                                              'CTRL+Z',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Undo the last command',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+Y',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Redo the last command',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'TAB',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Tab',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'SHIFT+TAB',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Untab',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+B',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Set a bold style',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+I',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Set an italic style',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+U',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Set an underline style',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+SHIFT+S',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Set a strikethrough style',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+BACKSLASH',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Clean a style',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+SHIFT+L',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Set left align',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+SHIFT+E',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Set center align',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+SHIFT+R',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Set right align',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+SHIFT+J',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Set full align',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+SHIFT+NUM7',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Toggle unordered list',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+SHIFT+NUM8',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Toggle ordered list',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+LEFTBRACKET',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Outdent on current paragraph',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+RIGHTBRACKET',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Indent on current paragraph',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+NUM0',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Change current block\'s format as a paragraph (<p> tag)',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+NUM1',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Change current block\'s format as H1',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+NUM2',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Change current block\'s format as H2',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+NUM3',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Change current block\'s format as H3',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+NUM4',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Change current block\'s format as H4',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+NUM5',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Change current block\'s format as H5',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+NUM6',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Change current block\'s format as H6',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+ENTER',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Insert horizontal rule',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                            Text(
+                                              'CTRL+K',
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Text(
+                                              'Show link dialog',
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ],

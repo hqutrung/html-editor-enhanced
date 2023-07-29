@@ -1,4 +1,5 @@
 # Flutter Html Editor - Enhanced
+
 [![pub package](https://img.shields.io/pub/v/html_editor_enhanced.svg)](https://pub.dev/packages/html_editor_enhanced)
 
 Flutter HTML Editor Enhanced is a text editor for Android, iOS, and Web to help write WYSIWYG HTML code with the Summernote JavaScript wrapper.
@@ -44,37 +45,37 @@ Note that the API shown in this README.md file shows only a part of the document
   - [Methods Table](#methods)
 
   - [Callbacks Table](#callbacks)
-  
+
   - [Getters](#getters)
-  
+
   - [Toolbar](#toolbar)
-  
+
   - [Plugins](#plugins)
-  
+
   - [`HtmlEditorOptions` Parameters](#htmleditoroptions-parameters)
-    
+
     - [`autoAdjustHeight`](#autoadjustheight)
-  
+
     - [`adjustHeightForKeyboard`](#adjustheightforkeyboard)
-  
+
     - [`filePath`](#filepath)
-  
+
     - [`shouldEnsureVisible`](#shouldensurevisible)
-    
+
     - [`webInitialScripts`](#webinitialscripts)
-    
+
   - [`HtmlToolbarOptions` Parameters](#htmltoolbaroptions-parameters)
-  
+
     - [`customToolbarButtons` and `customToolbarButtonsInsertionIndices`](#customtoolbarbuttons-and-customtoolbarbuttonsinsertionindices)
-    
+
     - [`linkInsertInterceptor`, `mediaLinkInsertInterceptor`, `otherFileLinkInsert`, `mediaUploadInterceptor`, and `onOtherFileUpload`](#linkinsertinterceptor-medialinkinsertinterceptor-otherfilelinkinsert-mediauploadinterceptor-and-onotherfileupload)
-    
+
     - [`onButtonPressed` and `onDropdownChanged`](#onbuttonpressed-and-ondropdownchanged)
-    
+
     - [`toolbarPosition: ToolbarPosition.custom`](#custom-toolbar-position-using-toolbarpositioncustom)
-    
+
   - [`HtmlEditorController` Parameters](#htmleditorcontroller-parameters)
-  
+
     - [`processInputHtml`, `processOutputHtml`, and `processNewLineAsBr`](#processinputhtml-processoutputhtml-and-processnewlineasbr)
 
 - [Examples](#examples)
@@ -86,7 +87,7 @@ Note that the API shown in this README.md file shows only a part of the document
 - [License](#license)
 
 - [Contribution Guide](#contribution-guide)
- 
+
 ## In what ways is this package "enhanced"?
 
 1. It has official support for Flutter Web, with nearly all mobile features supported. Keyboard shortcuts like Ctrl+B for bold work as well!
@@ -117,7 +118,7 @@ Add `html_editor_enhanced: ^2.5.0` as dependency to your pubspec.yaml.
 
 Make sure to declare internet support inside `AndroidManifest.xml`: `<uses-permission android:name="android.permission.INTERNET"/>`
 
-Additional setup is required on iOS to allow the user to pick files from storage. See [here](https://github.com/miguelpruivo/flutter_file_picker/wiki/Setup#--ios) for more details. 
+Additional setup is required on iOS to allow the user to pick files from storage. See [here](https://github.com/miguelpruivo/flutter_file_picker/wiki/Setup#--ios) for more details.
 
 For images, the package uses `FileType.image`, for video `FileType.video`, for audio `FileType.audio`, and for any other file `FileType.any`. You can just complete setup for the specific buttons you plan to enable in the editor.
 
@@ -138,7 +139,7 @@ HtmlEditorController controller = HtmlEditorController();
         htmlEditorOptions: HtmlEditorOptions(
           hint: "Your text here...",
           //initalText: "text content initial, if any",
-        ),   
+        ),
         otherOptions: OtherOptions(
           height: 400,
         ),
@@ -164,183 +165,183 @@ Below, you will find brief descriptions of the parameters the `HtmlEditor` widge
 
 ### Parameters - `HtmlEditor`
 
-Parameter | Type | Default | Description
------------- | ------------- | ------------- | -------------
-**controller** | `HtmlEditorController` | empty | Required param. Create a controller instance and pass it to the widget. This ensures that any methods called work only on their `HtmlEditor` instance, allowing you to use multiple HTML widgets on one page.
-**callbacks** | `Callbacks` | empty | Customize the callbacks for various events
-**options** | `HtmlEditorOptions` | `HtmlEditorOptions()` | Class to set various options. See [below](#parameters---htmleditoroptions) for more details.
-**plugins** | `List<Plugins>` | empty | Customize what plugins are activated. See [below](#plugins) for more details.
-**toolbar** | `List<Toolbar>` | See the widget's constructor | Customize what buttons are shown on the toolbar, and in which order. See [below](#toolbar) for more details.
+| Parameter      | Type                   | Default                      | Description                                                                                                                                                                                                   |
+| -------------- | ---------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **controller** | `HtmlEditorController` | empty                        | Required param. Create a controller instance and pass it to the widget. This ensures that any methods called work only on their `HtmlEditor` instance, allowing you to use multiple HTML widgets on one page. |
+| **callbacks**  | `Callbacks`            | empty                        | Customize the callbacks for various events                                                                                                                                                                    |
+| **options**    | `HtmlEditorOptions`    | `HtmlEditorOptions()`        | Class to set various options. See [below](#parameters---htmleditoroptions) for more details.                                                                                                                  |
+| **plugins**    | `List<Plugins>`        | empty                        | Customize what plugins are activated. See [below](#plugins) for more details.                                                                                                                                 |
+| **toolbar**    | `List<Toolbar>`        | See the widget's constructor | Customize what buttons are shown on the toolbar, and in which order. See [below](#toolbar) for more details.                                                                                                  |
 
 ### Parameters - `HtmlEditorController`
 
-Parameter | Type | Default | Description
------------- | ------------- | ------------- | -------------
-**processInputHtml** | `bool` | `true` | Determines whether processing occurs on any input HTML (e.g. escape quotes, apostrophes, and remove `/n`s)
-**processNewLineAsBr** | `bool` | `false` | Determines whether a new line (`\n`) becomes a `<br/>` in any *input* HTML
-**processOutputHtml** | `bool` | `true` | Determines whether processing occurs on any output HTML (e.g. `<p><br/><p>` becomes `""`)
+| Parameter              | Type   | Default | Description                                                                                                |
+| ---------------------- | ------ | ------- | ---------------------------------------------------------------------------------------------------------- |
+| **processInputHtml**   | `bool` | `true`  | Determines whether processing occurs on any input HTML (e.g. escape quotes, apostrophes, and remove `/n`s) |
+| **processNewLineAsBr** | `bool` | `false` | Determines whether a new line (`\n`) becomes a `<br/>` in any _input_ HTML                                 |
+| **processOutputHtml**  | `bool` | `true`  | Determines whether processing occurs on any output HTML (e.g. `<p><br/><p>` becomes `""`)                  |
 
 ### Parameters - `HtmlEditorOptions`
 
-Parameter | Type | Default | Description
------------- | ------------- | ------------- | -------------
-**autoAdjustHeight** | `bool` | `true` | Automatically adjust the height of the text editor by analyzing the HTML height once the editor is loaded. Recommended value: `true`.  See [below](#autoadjustheight) for more details.
-**adjustHeightForKeyboard** | `bool` | `true` | Adjust the height of the editor if the keyboard is active and it overlaps the editor to prevent the overlap. Recommended value: `true`, only works on mobile.  See [below](#adjustheightforkeyboard) for more details.
-**characterLimit** | `int` | `null` | Sets the character limit for the editor. When reaching the limit the user will not be allowed to type anymore.
-**customOptions** | `String` | `null` | Provide custom options for Summernote initialization using the Summernote syntax (see [here](https://summernote.org/deep-dive/#initialization-options)
-**darkMode** | `bool` | `null` | Sets the status of dark mode - `false`: always light, `null`: follow system, `true`: always dark
-**filePath** | `String` | `null` | Allows you to specify your own HTML to be loaded into the webview. You can create a custom page with Summernote, or theoretically load any other editor/HTML.
-**hint** | `String` | empty | Placeholder hint text
-**initialText** | `String` | empty | Initial text content for text editor
-**inputType** | `HtmlInputType` | `HtmlInputType.text` | Allows you to set how the virtual keyboard displays for the editor on mobile devices
-**mobileContextMenu** | `ContextMenu` | `null` | Customize the context menu when a user selects text in the editor. See docs for `ContextMenu` [here](https://inappwebview.dev/docs/context-menu/basic-usage/)
-**mobileLongPressDuration** | `Duration` | `Duration(milliseconds: 500)` | Set the duration until a long-press is recognized
-**mobileInitialScripts** | `UnmodifiableListView<UserScript>` | `null` | Easily inject scripts to perform actions like changing the background color of the editor. See docs for `UserScript` [here](https://inappwebview.dev/docs/javascript/user-scripts/)
-**webInitialScripts** | `UnmodifiableListView<WebScript>` | `null` | Easily inject scripts to perform actions like changing the background color of the editor. See [below](#webinitialscripts) for more details.
-**shouldEnsureVisible** | `bool` | `false` | Scroll the parent `Scrollable` to the top of the editor widget when the webview is focused. Do *not* use this parameter if `HtmlEditor` is not inside a `Scrollable`. See [below](#shouldensurevisible) for more details.
-**spellCheck** | `bool` | `false` | Specify whether or not to use spellcheck in the editor and underline wrong spellings.
+| Parameter                   | Type                               | Default                       | Description                                                                                                                                                                                                               |
+| --------------------------- | ---------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **autoAdjustHeight**        | `bool`                             | `true`                        | Automatically adjust the height of the text editor by analyzing the HTML height once the editor is loaded. Recommended value: `true`. See [below](#autoadjustheight) for more details.                                    |
+| **adjustHeightForKeyboard** | `bool`                             | `true`                        | Adjust the height of the editor if the keyboard is active and it overlaps the editor to prevent the overlap. Recommended value: `true`, only works on mobile. See [below](#adjustheightforkeyboard) for more details.     |
+| **characterLimit**          | `int`                              | `null`                        | Sets the character limit for the editor. When reaching the limit the user will not be allowed to type anymore.                                                                                                            |
+| **customOptions**           | `String`                           | `null`                        | Provide custom options for Summernote initialization using the Summernote syntax (see [here](https://summernote.org/deep-dive/#initialization-options)                                                                    |
+| **darkMode**                | `bool`                             | `null`                        | Sets the status of dark mode - `false`: always light, `null`: follow system, `true`: always dark                                                                                                                          |
+| **filePath**                | `String`                           | `null`                        | Allows you to specify your own HTML to be loaded into the webview. You can create a custom page with Summernote, or theoretically load any other editor/HTML.                                                             |
+| **hint**                    | `String`                           | empty                         | Placeholder hint text                                                                                                                                                                                                     |
+| **initialText**             | `String`                           | empty                         | Initial text content for text editor                                                                                                                                                                                      |
+| **inputType**               | `HtmlInputType`                    | `HtmlInputType.text`          | Allows you to set how the virtual keyboard displays for the editor on mobile devices                                                                                                                                      |
+| **mobileContextMenu**       | `ContextMenu`                      | `null`                        | Customize the context menu when a user selects text in the editor. See docs for `ContextMenu` [here](https://inappwebview.dev/docs/context-menu/basic-usage/)                                                             |
+| **mobileLongPressDuration** | `Duration`                         | `Duration(milliseconds: 500)` | Set the duration until a long-press is recognized                                                                                                                                                                         |
+| **mobileInitialScripts**    | `UnmodifiableListView<UserScript>` | `null`                        | Easily inject scripts to perform actions like changing the background color of the editor. See docs for `UserScript` [here](https://inappwebview.dev/docs/javascript/user-scripts/)                                       |
+| **webInitialScripts**       | `UnmodifiableListView<WebScript>`  | `null`                        | Easily inject scripts to perform actions like changing the background color of the editor. See [below](#webinitialscripts) for more details.                                                                              |
+| **shouldEnsureVisible**     | `bool`                             | `false`                       | Scroll the parent `Scrollable` to the top of the editor widget when the webview is focused. Do _not_ use this parameter if `HtmlEditor` is not inside a `Scrollable`. See [below](#shouldensurevisible) for more details. |
+| **spellCheck**              | `bool`                             | `false`                       | Specify whether or not to use spellcheck in the editor and underline wrong spellings.                                                                                                                                     |
 
 ### Parameters - `HtmlToolbarOptions`
 
 #### Toolbar Options
 
-Parameter | Type | Default | Description
------------- | ------------- | ------------- | -------------
-**audioExtensions** | `List<String>` | `null` | Allowed extensions when inserting audio files
-**customToolbarButtons** | `List<Widget>` | empty | Add custom buttons to the toolbar
-**customToolbarInsertionIndices** | `List<int>` | empty | Allows you to set where each custom toolbar button should be inserted into the toolbar widget list
-**defaultToolbarButtons** | `List<Toolbar>` | (all constructors active) | Allows you to hide/show certain buttons or certain groups of buttons
-**otherFileExtensions** | `List<String>` | `null` | Allowed extensions when inserting files other than image/audio/video
-**imageExtensions** | `List<String>` | `null` | Allowed extensions when inserting images
-**initiallyExpanded** | `bool` | `false` | Sets whether the toolbar is initially expanded or not when using `ToolbarType.nativeExpandable`
-**linkInsertInterceptor** | `FutureOr<bool> Function(String, String, bool)` | `null` | Intercept any links inserted into the editor. The function passes the display text, the URL, and whether it opens a new tab.
-**mediaLinkInsertInterceptor** | `FutureOr<bool> Function(String, InsertFileType)` | `null` | Intercept any media links inserted into the editor. The function passes the URL and `InsertFileType` which indicates which file type was inserted
-**mediaUploadInterceptor** | `FutureOr<bool> Function(PlatformFile, InsertFileType)` | `null` | Intercept any media files inserted into the editor. The function passes `PlatformFile` which holds all relevant file data, and `InsertFileType` which indicates which file type was inserted.
-**onButtonPressed** | `FutureOr<bool> Function(ButtonType, bool?, void Function()?)` | `null` | Intercept any button presses. The function passes the enum for the pressed button, the current selected status of the button (if applicable) and a function to update the status (if applicable).
-**onDropdownChanged** | `FutureOr<bool> Function(DropdownType, dynamic, void Function(dynamic)?)` | `null` | Intercept any dropdown changes. The function passes the enum for the changed dropdown, the changed value, and a function to update the changed value (if applicable).
-**onOtherFileLinkInsert** | `Function(String)` | `null` | Intercept file link inserts other than image/audio/video. This handler is required when using the other file button, as the package has no built-in handlers
-**onOtherFileUpload** | `Function(PlatformFile)` | `null` | Intercept file uploads other than image/audio/video. This handler is required when using the other file button, as the package has no built-in handlers
-**otherFileExtensions** | `List<String>` | `null` | Allowed extensions when inserting files other than image/audio/video
-**toolbarType** | `ToolbarType` | `ToolbarType.nativeScrollable` | Customize how the toolbar is displayed (gridview, scrollable, or expandable)
-**toolbarPosition** | `ToolbarPosition` | `ToolbarPosition.aboveEditor` | Set where the toolbar is displayed (above or below the editor)
-**videoExtensions** | `List<String>` | `null` | Allowed extensions when inserting videos
+| Parameter                         | Type                                                                      | Default                        | Description                                                                                                                                                                                       |
+| --------------------------------- | ------------------------------------------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **audioExtensions**               | `List<String>`                                                            | `null`                         | Allowed extensions when inserting audio files                                                                                                                                                     |
+| **customToolbarButtons**          | `List<Widget>`                                                            | empty                          | Add custom buttons to the toolbar                                                                                                                                                                 |
+| **customToolbarInsertionIndices** | `List<int>`                                                               | empty                          | Allows you to set where each custom toolbar button should be inserted into the toolbar widget list                                                                                                |
+| **defaultToolbarButtons**         | `List<Toolbar>`                                                           | (all constructors active)      | Allows you to hide/show certain buttons or certain groups of buttons                                                                                                                              |
+| **otherFileExtensions**           | `List<String>`                                                            | `null`                         | Allowed extensions when inserting files other than image/audio/video                                                                                                                              |
+| **imageExtensions**               | `List<String>`                                                            | `null`                         | Allowed extensions when inserting images                                                                                                                                                          |
+| **initiallyExpanded**             | `bool`                                                                    | `false`                        | Sets whether the toolbar is initially expanded or not when using `ToolbarType.nativeExpandable`                                                                                                   |
+| **linkInsertInterceptor**         | `FutureOr<bool> Function(String, String, bool)`                           | `null`                         | Intercept any links inserted into the editor. The function passes the display text, the URL, and whether it opens a new tab.                                                                      |
+| **mediaLinkInsertInterceptor**    | `FutureOr<bool> Function(String, InsertFileType)`                         | `null`                         | Intercept any media links inserted into the editor. The function passes the URL and `InsertFileType` which indicates which file type was inserted                                                 |
+| **mediaUploadInterceptor**        | `FutureOr<bool> Function(PlatformFile, InsertFileType)`                   | `null`                         | Intercept any media files inserted into the editor. The function passes `PlatformFile` which holds all relevant file data, and `InsertFileType` which indicates which file type was inserted.     |
+| **onButtonPressed**               | `FutureOr<bool> Function(ButtonType, bool?, void Function()?)`            | `null`                         | Intercept any button presses. The function passes the enum for the pressed button, the current selected status of the button (if applicable) and a function to update the status (if applicable). |
+| **onDropdownChanged**             | `FutureOr<bool> Function(DropdownType, dynamic, void Function(dynamic)?)` | `null`                         | Intercept any dropdown changes. The function passes the enum for the changed dropdown, the changed value, and a function to update the changed value (if applicable).                             |
+| **onOtherFileLinkInsert**         | `Function(String)`                                                        | `null`                         | Intercept file link inserts other than image/audio/video. This handler is required when using the other file button, as the package has no built-in handlers                                      |
+| **onOtherFileUpload**             | `Function(PlatformFile)`                                                  | `null`                         | Intercept file uploads other than image/audio/video. This handler is required when using the other file button, as the package has no built-in handlers                                           |
+| **otherFileExtensions**           | `List<String>`                                                            | `null`                         | Allowed extensions when inserting files other than image/audio/video                                                                                                                              |
+| **toolbarType**                   | `ToolbarType`                                                             | `ToolbarType.nativeScrollable` | Customize how the toolbar is displayed (gridview, scrollable, or expandable)                                                                                                                      |
+| **toolbarPosition**               | `ToolbarPosition`                                                         | `ToolbarPosition.aboveEditor`  | Set where the toolbar is displayed (above or below the editor)                                                                                                                                    |
+| **videoExtensions**               | `List<String>`                                                            | `null`                         | Allowed extensions when inserting videos                                                                                                                                                          |
 
 #### Styling Options
 
-Parameter | Type | Default | Description
------------- | ------------- | ------------- | -------------
-**renderBorder** | `bool` | `false` | Render a border around dropdowns and buttons
-**textStyle** | `TextStyle` | `null` | The `TextStyle` to use when displaying dropdowns and buttons
-**separatorWidget** | `Widget` | `VerticalDivider(indent: 2, endIndent: 2, color: Colors.grey)` | Set the widget that separates each group of buttons/dropdowns
-**renderSeparatorWidget** | `bool` | `true` | Whether or not the separator widget should be rendered
-**toolbarItemHeight** | `double` | `36` | Set the height of dropdowns and buttons. Buttons will maintain a square aspect ratio.
-**gridViewHorizontalSpacing** | `double` | `5` | The horizontal spacing to use between button groups when displaying the toolbar as `ToolbarType.nativeGrid`
-**gridViewVerticalSpacing** | `double` | `5` | The vertical spacing to use between button groups when diplaying the toolbar as `ToolbarType.nativeGrid`
+| Parameter                     | Type        | Default                                                        | Description                                                                                                 |
+| ----------------------------- | ----------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| **renderBorder**              | `bool`      | `false`                                                        | Render a border around dropdowns and buttons                                                                |
+| **textStyle**                 | `TextStyle` | `null`                                                         | The `TextStyle` to use when displaying dropdowns and buttons                                                |
+| **separatorWidget**           | `Widget`    | `VerticalDivider(indent: 2, endIndent: 2, color: Colors.grey)` | Set the widget that separates each group of buttons/dropdowns                                               |
+| **renderSeparatorWidget**     | `bool`      | `true`                                                         | Whether or not the separator widget should be rendered                                                      |
+| **toolbarItemHeight**         | `double`    | `36`                                                           | Set the height of dropdowns and buttons. Buttons will maintain a square aspect ratio.                       |
+| **gridViewHorizontalSpacing** | `double`    | `5`                                                            | The horizontal spacing to use between button groups when displaying the toolbar as `ToolbarType.nativeGrid` |
+| **gridViewVerticalSpacing**   | `double`    | `5`                                                            | The vertical spacing to use between button groups when diplaying the toolbar as `ToolbarType.nativeGrid`    |
 
 #### Styling Options - applies to dropdowns only
 
-Parameter | Type | Default
------------- | ------------- | -------------
-**dropdownElevation** | `int` | `8` 
-**dropdownIcon** | `Widget` | `null` 
-**dropdownIconColor** | `Color` | `null`
-**dropdownIconSize** | `double` | `24`
-**dropdownItemHeight** | `double` | `kMinInteractiveDimension` (`48`)
-**dropdownFocusColor** | `Color` | `null` 
-**dropdownBackgroundColor** | `Color` | `null` 
-**dropdownMenuDirection** | `DropdownMenuDirection` | `null`
-**dropdownMenuMaxHeight** | `double` | `null` 
-**dropdownBoxDecoration** | `BoxDecoration` | `null`
+| Parameter                   | Type                    | Default                           |
+| --------------------------- | ----------------------- | --------------------------------- |
+| **dropdownElevation**       | `int`                   | `8`                               |
+| **dropdownIcon**            | `Widget`                | `null`                            |
+| **dropdownIconColor**       | `Color`                 | `null`                            |
+| **dropdownIconSize**        | `double`                | `24`                              |
+| **dropdownItemHeight**      | `double`                | `kMinInteractiveDimension` (`48`) |
+| **dropdownFocusColor**      | `Color`                 | `null`                            |
+| **dropdownBackgroundColor** | `Color`                 | `null`                            |
+| **dropdownMenuDirection**   | `DropdownMenuDirection` | `null`                            |
+| **dropdownMenuMaxHeight**   | `double`                | `null`                            |
+| **dropdownBoxDecoration**   | `BoxDecoration`         | `null`                            |
 
 #### Styling Options - applies to buttons only
 
-Parameter | Type | Default
------------- | ------------- | -------------
-**buttonColor** | `Color` | `null` 
-**buttonSelectedColor** | `Color` | `null` 
-**buttonFillColor** | `Color` | `null`
-**buttonFocusColor** | `Color` | `null`
-**buttonHighlightColor** | `Color` | `null`
-**buttonHoverColor** | `Color` | `null` 
-**buttonSplashColor** | `Color` | `null` 
-**buttonBorderColor** | `Color` | `null` 
-**buttonSelectedBorderColor** | `Color` | `null`
-**buttonBorderRadius** | `BorderRadius` | `null`
-**buttonBorderWidth** | `double` | `null`
+| Parameter                     | Type           | Default |
+| ----------------------------- | -------------- | ------- |
+| **buttonColor**               | `Color`        | `null`  |
+| **buttonSelectedColor**       | `Color`        | `null`  |
+| **buttonFillColor**           | `Color`        | `null`  |
+| **buttonFocusColor**          | `Color`        | `null`  |
+| **buttonHighlightColor**      | `Color`        | `null`  |
+| **buttonHoverColor**          | `Color`        | `null`  |
+| **buttonSplashColor**         | `Color`        | `null`  |
+| **buttonBorderColor**         | `Color`        | `null`  |
+| **buttonSelectedBorderColor** | `Color`        | `null`  |
+| **buttonBorderRadius**        | `BorderRadius` | `null`  |
+| **buttonBorderWidth**         | `double`       | `null`  |
 
 ### Parameters - `Other Options`
 
-Parameter | Type | Default | Description
------------- | ------------- | ------------- | -------------
-**decoration** | `BoxDecoration` | `null` | `BoxDecoration` that surrounds the widget
-**height** | `double` | `null` | Height of the widget (includes toolbar and editing area)
+| Parameter      | Type            | Default | Description                                              |
+| -------------- | --------------- | ------- | -------------------------------------------------------- |
+| **decoration** | `BoxDecoration` | `null`  | `BoxDecoration` that surrounds the widget                |
+| **height**     | `double`        | `null`  | Height of the widget (includes toolbar and editing area) |
 
 ### Methods
 
 Access these methods like this: `<controller name>.<method name>`
 
-Method | Argument(s) | Returned Value(s) | Description
------------- | ------------- | ------------- | -------------
-**addNotification()** | `String` html, `NotificationType` notificationType | N/A | Adds a notification to the bottom of the editor with the provided HTML content. `NotificationType` determines how it is styled.
-**clear()** | N/A | N/A | Resets the HTML editor to its default state
-**clearFocus()** | N/A | N/A | Clears focus for the webview and resets the height to the original height on mobile. Do *not* use this method in Flutter Web.
-**disable()** | N/A | N/A | Disables the editor (a gray mask is applied and all touches are absorbed)
-**enable()** | N/A | N/A | Enables the editor
-**execCommand()** | `String` command, `String` argument (optional) | N/A | Allows you to run any `execCommand` command easily. See the [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand) for usage.
-**getText()** | N/A | `Future<String>` | Returns the current HTML in the editor
-**getSelectedTextWeb()** | `bool` (optional) | `Future<String>` | Get the currently selected text in the editor, with or without the HTML tags. Do *not* use this method in Flutter Mobile.
-**insertHtml()** | `String` | N/A | Inserts the provided HTML string into the editor at the current cursor position. Do *not* use this method for plaintext strings.
-**insertLink()** | `String` text, `String` url, `bool` isNewWindow | N/A | Inserts a hyperlink using the provided text and url into the editor at the current cursor position. `isNewWindow` defines whether a new browser window is launched if the link is tapped.
-**insertNetworkImage()** | `String` url, `String` filename (optional) | N/A | Inserts an image using the provided url and optional filename into the editor at the current cursor position. The image must be accessible via a URL.
-**insertText()** | `String` | N/A | Inserts the provided text into the editor at the current cursor position. Do *not* use this method for HTML strings.
-**recalculateHeight()** | N/A | N/A | Recalculates the height of the editor by re-evaluating `document.body.scrollHeight`
-**redo()** | N/A | N/A | Redoes the last command in the editor
-**reloadWeb()** | N/A | N/A | Reloads the webpage in Flutter Web. This is mainly provided to refresh the text editor theme when the theme is changed. Do *not* use this method in Flutter Mobile.
-**removeNotification()** | N/A | N/A | Removes the current notification from the bottom of the editor
-**resetHeight()** | N/A | N/A | Resets the height of the webview to the original height. Do *not* use this method in Flutter Web.
-**setHint()** | `String` | N/A | Sets the current hint text of the editor
-**setFocus()** | N/A | N/A | If the pointer is in the webview, the focus will be set to the editor box
-**setFullScreen()** | N/A | N/A | Sets the editor to take up the entire size of the webview
-**setText()** | `String` | N/A | Sets the current text in the HTML to the input HTML string
-**toggleCodeview()** | N/A | N/A | Toggles between the code view and the rich text view
-**undo()** | N/A | N/A | Undoes the last command in the editor
+| Method                   | Argument(s)                                        | Returned Value(s) | Description                                                                                                                                                                               |
+| ------------------------ | -------------------------------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **addNotification()**    | `String` html, `NotificationType` notificationType | N/A               | Adds a notification to the bottom of the editor with the provided HTML content. `NotificationType` determines how it is styled.                                                           |
+| **clear()**              | N/A                                                | N/A               | Resets the HTML editor to its default state                                                                                                                                               |
+| **clearFocus()**         | N/A                                                | N/A               | Clears focus for the webview and resets the height to the original height on mobile. Do _not_ use this method in Flutter Web.                                                             |
+| **disable()**            | N/A                                                | N/A               | Disables the editor (a gray mask is applied and all touches are absorbed)                                                                                                                 |
+| **enable()**             | N/A                                                | N/A               | Enables the editor                                                                                                                                                                        |
+| **execCommand()**        | `String` command, `String` argument (optional)     | N/A               | Allows you to run any `execCommand` command easily. See the [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand) for usage.                                  |
+| **getText()**            | N/A                                                | `Future<String>`  | Returns the current HTML in the editor                                                                                                                                                    |
+| **getSelectedTextWeb()** | `bool` (optional)                                  | `Future<String>`  | Get the currently selected text in the editor, with or without the HTML tags. Do _not_ use this method in Flutter Mobile.                                                                 |
+| **insertHtml()**         | `String`                                           | N/A               | Inserts the provided HTML string into the editor at the current cursor position. Do _not_ use this method for plaintext strings.                                                          |
+| **insertLink()**         | `String` text, `String` url, `bool` isNewWindow    | N/A               | Inserts a hyperlink using the provided text and url into the editor at the current cursor position. `isNewWindow` defines whether a new browser window is launched if the link is tapped. |
+| **insertNetworkImage()** | `String` url, `String` filename (optional)         | N/A               | Inserts an image using the provided url and optional filename into the editor at the current cursor position. The image must be accessible via a URL.                                     |
+| **insertText()**         | `String`                                           | N/A               | Inserts the provided text into the editor at the current cursor position. Do _not_ use this method for HTML strings.                                                                      |
+| **recalculateHeight()**  | N/A                                                | N/A               | Recalculates the height of the editor by re-evaluating `document.body.scrollHeight`                                                                                                       |
+| **redo()**               | N/A                                                | N/A               | Redoes the last command in the editor                                                                                                                                                     |
+| **reloadWeb()**          | N/A                                                | N/A               | Reloads the webpage in Flutter Web. This is mainly provided to refresh the text editor theme when the theme is changed. Do _not_ use this method in Flutter Mobile.                       |
+| **removeNotification()** | N/A                                                | N/A               | Removes the current notification from the bottom of the editor                                                                                                                            |
+| **resetHeight()**        | N/A                                                | N/A               | Resets the height of the webview to the original height. Do _not_ use this method in Flutter Web.                                                                                         |
+| **setHint()**            | `String`                                           | N/A               | Sets the current hint text of the editor                                                                                                                                                  |
+| **setFocus()**           | N/A                                                | N/A               | If the pointer is in the webview, the focus will be set to the editor box                                                                                                                 |
+| **setFullScreen()**      | N/A                                                | N/A               | Sets the editor to take up the entire size of the webview                                                                                                                                 |
+| **setText()**            | `String`                                           | N/A               | Sets the current text in the HTML to the input HTML string                                                                                                                                |
+| **toggleCodeview()**     | N/A                                                | N/A               | Toggles between the code view and the rich text view                                                                                                                                      |
+| **undo()**               | N/A                                                | N/A               | Undoes the last command in the editor                                                                                                                                                     |
 
 ### Callbacks
 
 Every callback is defined as a `Function(<parameters in some cases>)`. See the [documentation](https://pub.dev/documentation/html_editor_enhanced/latest/) for more specific details on each callback.
- 
-Callback | Parameter(s) | Description
------------- | ------------- | -------------
-**onBeforeCommand** | `String` | Called before certain commands are called (like undo and redo), passes the HTML in the editor before the command is called
-**onChangeContent** | `String` | Called when the content of the editor changes, passes the current HTML in the editor
-**onChangeCodeview** | `String` | Called when the content of the codeview changes, passes the current code in the codeview
-**onChangeSelection** | `EditorSettings` | Called when the current selection of the editor changes, passes all editor settings (e.g. bold/italic/underline, color, text direction, etc).
-**onDialogShown** | N/A | Called when either the image, link, video, or help dialogs are shown
-**onEnter** | N/A | Called when enter/return is pressed
-**onFocus** | N/A | Called when the rich text field gains focus
-**onBlur** | N/A | Called when the rich text field or the codeview loses focus
-**onBlurCodeview** | N/A | Called when the codeview either gains or loses focus
-**onImageLinkInsert** | `String` | Called when an image is inserted via URL, passes the URL of the image
-**onImageUpload** | `FileUpload` | Called when an image is inserted via upload, passes `FileUpload` which holds filename, date modified, size, and MIME type
-**onImageUploadError** | `FileUpload`, `String`, `UploadError` | Called when an image fails to inserted via upload, passes `FileUpload` which may hold filename, date modified, size, and MIME type (or be null), `String` which is the base64 (or null), and `UploadError` which describes the type of error
-**onInit** | N/A | Called when the rich text field is initialized and JavaScript methods can be called
-**onKeyDown** | `int` | Called when a key is downed, passes the keycode of the downed key
-**onKeyUp** | `int` | Called when a key is released, passes the keycode of the released key
-**onMouseDown** | N/A | Called when the mouse/finger is downed
-**onMouseUp** | N/A | Called when the mouse/finger is released
-**onNavigationRequestMobile** | `String` | Called when the URL of the webview is about to change on mobile only
-**onPaste** | N/A | Called when content is pasted into the editor
-**onScroll** | N/A | Called when editor box is scrolled
+
+| Callback                      | Parameter(s)                          | Description                                                                                                                                                                                                                                  |
+| ----------------------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **onBeforeCommand**           | `String`                              | Called before certain commands are called (like undo and redo), passes the HTML in the editor before the command is called                                                                                                                   |
+| **onChangeContent**           | `String`                              | Called when the content of the editor changes, passes the current HTML in the editor                                                                                                                                                         |
+| **onChangeCodeview**          | `String`                              | Called when the content of the codeview changes, passes the current code in the codeview                                                                                                                                                     |
+| **onChangeSelection**         | `EditorSettings`                      | Called when the current selection of the editor changes, passes all editor settings (e.g. bold/italic/underline, color, text direction, etc).                                                                                                |
+| **onDialogShown**             | N/A                                   | Called when either the image, link, video, or help dialogs are shown                                                                                                                                                                         |
+| **onEnter**                   | N/A                                   | Called when enter/return is pressed                                                                                                                                                                                                          |
+| **onFocus**                   | N/A                                   | Called when the rich text field gains focus                                                                                                                                                                                                  |
+| **onBlur**                    | N/A                                   | Called when the rich text field or the codeview loses focus                                                                                                                                                                                  |
+| **onBlurCodeview**            | N/A                                   | Called when the codeview either gains or loses focus                                                                                                                                                                                         |
+| **onImageLinkInsert**         | `String`                              | Called when an image is inserted via URL, passes the URL of the image                                                                                                                                                                        |
+| **onImageUpload**             | `FileUpload`                          | Called when an image is inserted via upload, passes `FileUpload` which holds filename, date modified, size, and MIME type                                                                                                                    |
+| **onImageUploadError**        | `FileUpload`, `String`, `UploadError` | Called when an image fails to inserted via upload, passes `FileUpload` which may hold filename, date modified, size, and MIME type (or be null), `String` which is the base64 (or null), and `UploadError` which describes the type of error |
+| **onInit**                    | N/A                                   | Called when the rich text field is initialized and JavaScript methods can be called                                                                                                                                                          |
+| **onKeyDown**                 | `int`                                 | Called when a key is downed, passes the keycode of the downed key                                                                                                                                                                            |
+| **onKeyUp**                   | `int`                                 | Called when a key is released, passes the keycode of the released key                                                                                                                                                                        |
+| **onMouseDown**               | N/A                                   | Called when the mouse/finger is downed                                                                                                                                                                                                       |
+| **onMouseUp**                 | N/A                                   | Called when the mouse/finger is released                                                                                                                                                                                                     |
+| **onNavigationRequestMobile** | `String`                              | Called when the URL of the webview is about to change on mobile only                                                                                                                                                                         |
+| **onPaste**                   | N/A                                   | Called when content is pasted into the editor                                                                                                                                                                                                |
+| **onScroll**                  | N/A                                   | Called when editor box is scrolled                                                                                                                                                                                                           |
 
 ### Getters
 
-1) `<controller name>.editorController`. This returns the `InAppWebViewController`, which manages the webview that displays the editor.
+1. `<controller name>.editorController`. This returns the `InAppWebViewController`, which manages the webview that displays the editor.
 
 This is extremely powerful, as it allows you to create your own custom methods and implementations directly in your app. See [`flutter_inappwebview`](https://github.com/pichillilorenzo/flutter_inappwebview) for documentation on the controller.
 
-This getter *should not* be used in Flutter Web. If you are making a cross platform implementation, please use `kIsWeb` to check the current platform in your code.
+This getter _should not_ be used in Flutter Web. If you are making a cross platform implementation, please use `kIsWeb` to check the current platform in your code.
 
-2) `<controller name>.characterCount`. This returns the number of text characters in the editor.
+2. `<controller name>.characterCount`. This returns the number of text characters in the editor.
 
 ### Toolbar
 
@@ -381,19 +382,19 @@ This API allows you to add certain Summernote plugins from the [Summernote Aweso
 Currently the following plugins are supported:
 
 1. [Summernote Case Converter](https://github.com/piranga8/summernote-case-converter) -
-Convert the selected text to all lowercase, all uppercase, sentence case, or title case. Supported via a dropdown in the toolbar in `ParagraphButtons`.
+   Convert the selected text to all lowercase, all uppercase, sentence case, or title case. Supported via a dropdown in the toolbar in `ParagraphButtons`.
 
 2. [Summernote List Styles](https://github.com/tylerecouture/summernote-list-styles) -
-Customize the ul and ol list style. Supported via a dropdown in the toolbar in `ListButtons`.
+   Customize the ul and ol list style. Supported via a dropdown in the toolbar in `ListButtons`.
 
 3. [Summernote RTL](https://github.com/virtser/summernote-rtl-plugin) -
-Switch the currently selected text between LTR and RTL format. Supported via two buttons in the toolbar in `ParagraphButtons`.
+   Switch the currently selected text between LTR and RTL format. Supported via two buttons in the toolbar in `ParagraphButtons`.
 
 4. [Summernote At Mention](https://github.com/team-loxo/summernote-at-mention) -
-Shows a dropdown of available mentions when the '@' character is typed into the editor. The implementation requires that you pass a list of available mentions, and you can also provide a function to call when a mention is inserted into the editor.
+   Shows a dropdown of available mentions when the '@' character is typed into the editor. The implementation requires that you pass a list of available mentions, and you can also provide a function to call when a mention is inserted into the editor.
 
 5. [Summernote File](https://github.com/mathieu-coingt/summernote-file) -
-Support picture files (jpg, png, gif, wvg, webp), audio files (mp3, ogg, oga), and video files (mp4, ogv, webm) in base64. Supported via the image/audio/video/other file buttons in the toolbar in `InsertButtons`.
+   Support picture files (jpg, png, gif, wvg, webp), audio files (mp3, ogg, oga), and video files (mp4, ogv, webm) in base64. Supported via the image/audio/video/other file buttons in the toolbar in `InsertButtons`.
 
 This list is not final, more can be added. If there's a specific plugin you'd like to see support for, please file a feature request!
 
@@ -418,7 +419,7 @@ Widget htmlEditor = HtmlEditor(
       //returns the dropdown items on web
       mentionsWeb: ['test1', 'test2', 'test3'],
       onSelect: (String value) {
-        print(value);
+        debugPrint(value);
       }
     ),
   ]
@@ -433,7 +434,7 @@ This section contains longer descriptions for select parameters in `HtmlEditorOp
 
 Default value: true
 
-This option parameter sets the height of the editor automatically by getting the value returned by the JS `document.body.scrollHeight` and the toolbar `GlobalKey` (`toolbarKey.currentContext?.size?.height`). 
+This option parameter sets the height of the editor automatically by getting the value returned by the JS `document.body.scrollHeight` and the toolbar `GlobalKey` (`toolbarKey.currentContext?.size?.height`).
 
 This is useful because the toolbar could have either 1 - 5 rows depending on the widget's configuration, screen size, orientation, etc. There is no reliable way to tell how large the toolbar is going to be until after `build()` is executed, and thus simply hardcoding the height of the webview can induce either empty space at the bottom or a scrollable webview. By using the JS and a `GlobalKey` on the toolbar widget, the editor can get the exact height and update the widget to reflect that.
 
@@ -445,13 +446,13 @@ If this does not help your use case feel free to disable it, but the recommended
 
 Default value: true, only considered on mobile
 
-This option parameter changes the height of the editor if the keyboard is active and it overlaps with the editor. 
+This option parameter changes the height of the editor if the keyboard is active and it overlaps with the editor.
 
 This is useful because webviews do not shift their view when the keyboard is active on Flutter at the moment. This means that if your editor spans the height of the page, if the user types a long text they might not be able to see what they are typing because it is obscured by the keyboard.
 
 When this parameter is enabled, the webview will shift to the perfect height to ensure all the typed content is visible, and as soon as the keyboard is hidden, the editor shifts back to its original height.
 
-The webview does take a moment to shift itself back and forth after the keyboard pops up/keyboard disappears, but the delay isn't too bad. It is highly recommended to have the webview in a `Scrollable`  and `shouldEnsureVisible` enabled if there are other widgets on the page - if the editor is on the bottom half of the page it will be scrolled to the top and then the height will be set accordingly, rather than the plugin trying to set the height for a webview obscured completely by the keyboard.
+The webview does take a moment to shift itself back and forth after the keyboard pops up/keyboard disappears, but the delay isn't too bad. It is highly recommended to have the webview in a `Scrollable` and `shouldEnsureVisible` enabled if there are other widgets on the page - if the editor is on the bottom half of the page it will be scrolled to the top and then the height will be set accordingly, rather than the plugin trying to set the height for a webview obscured completely by the keyboard.
 
 See [below](#example-for-adjustheightforkeyboard) for an example use case.
 
@@ -469,20 +470,23 @@ On Web, you should include the following:
 
 2. `<!--headString-->` inside `<body>` and below your summernote `<div>` - this allows the JS and CSS files for any enabled plugins to be loaded
 
-3. `<!--summernoteScripts-->` inside `<body>` and below your summernote `<div>` - REQUIRED - this allows Dart and JS to communicate with each other. If you don't include this, then methods/callbacks will do nothing. 
+3. `<!--summernoteScripts-->` inside `<body>` and below your summernote `<div>` - REQUIRED - this allows Dart and JS to communicate with each other. If you don't include this, then methods/callbacks will do nothing.
 
 Notes:
 
-1. Do *not* initialize the Summernote editor in your custom HTML file! The package will take care of that.
+1. Do _not_ initialize the Summernote editor in your custom HTML file! The package will take care of that.
 
 2. Make sure to set the `id` for Summernote to `summernote-2`! - `<div id="summernote-2"></div>`.
 
 3. Make sure to include jquery and the Summernote JS/CSS in your file! The package does not do this for you.<br><br>
-You can use these files from the package to avoid adding more asset files:
+   You can use these files from the package to avoid adding more asset files:
 
 ```html
 <script src="assets/packages/html_editor_enhanced/assets/jquery.min.js"></script>
-<link href="assets/packages/html_editor_enhanced/assets/summernote-lite.min.css" rel="stylesheet">
+<link
+  href="assets/packages/html_editor_enhanced/assets/summernote-lite.min.css"
+  rel="stylesheet"
+/>
 <script src="assets/packages/html_editor_enhanced/assets/summernote-lite.min.js"></script>
 ```
 
@@ -492,11 +496,11 @@ See the example HTML file [below](#example-html-for-filepath) for an actual exam
 
 Default value: false
 
-This option parameter will scroll the editor container into view whenever the webview is focused or text is typed into the editor. 
+This option parameter will scroll the editor container into view whenever the webview is focused or text is typed into the editor.
 
 You can only use this parameter if your `HtmlEditor` is inside a `Scrollview`, otherwise it does nothing.
 
-This is useful in cases where the page is a `SingleChildScrollView` or something similar with multiple widgets (eg a form). When the user is going through the different fields, it will pop the webview into view, just like a `TextField` would scroll into in view if text is being typed inside it. 
+This is useful in cases where the page is a `SingleChildScrollView` or something similar with multiple widgets (eg a form). When the user is going through the different fields, it will pop the webview into view, just like a `TextField` would scroll into in view if text is being typed inside it.
 
 See [below](#example-for-shouldensurevisible) for an example with a good way to use this.
 
@@ -504,7 +508,7 @@ See [below](#example-for-shouldensurevisible) for an example with a good way to 
 
 This parameter allows you to specify custom JavaScript for the editor on Web. These can be called at any point in time using `controller.evaluateJavascriptWeb`.
 
-You must add these scripts using the `WebScript` class, which takes a `name` and a `script` argument. `name` *must* be a unique identifier, otherwise your desired script may not be executed. Pass your JavaScript code in the `script` argument.
+You must add these scripts using the `WebScript` class, which takes a `name` and a `script` argument. `name` _must_ be a unique identifier, otherwise your desired script may not be executed. Pass your JavaScript code in the `script` argument.
 
 The package supports returning values from JavaScript as well. You should run `var result = await controller.evaluateJavascriptWeb(<name>, hasReturnValue: true);`.
 
@@ -552,44 +556,44 @@ Widget htmlEditor = HtmlEditor(
 );
 ```
 
-In the above example, we have defined two buttons to be inserted at indices 2 and 5. These buttons will *not* be inserted before `FontSettingButtons` and before `ListButtons`, respectively! Each default button group may have a few different sub-groups:
+In the above example, we have defined two buttons to be inserted at indices 2 and 5. These buttons will _not_ be inserted before `FontSettingButtons` and before `ListButtons`, respectively! Each default button group may have a few different sub-groups:
 
-Button Group | Number of Subgroups 
------------- | -------------
-`StyleButtons` | 1
-`FontSettingButtons` | 3
-`FontButtons` | 2
-`ColorButtons` | 1
-`ListButtons` | 2
-`ParagraphButtons` | 5
-`InsertButtons` | 1
-`OtherButtons` | 2
+| Button Group         | Number of Subgroups |
+| -------------------- | ------------------- |
+| `StyleButtons`       | 1                   |
+| `FontSettingButtons` | 3                   |
+| `FontButtons`        | 2                   |
+| `ColorButtons`       | 1                   |
+| `ListButtons`        | 2                   |
+| `ParagraphButtons`   | 5                   |
+| `InsertButtons`      | 1                   |
+| `OtherButtons`       | 2                   |
 
 If some of your buttons are deactivated, the number of subgroups could be reduced. The insertion index depends on these subgroups rather than the overall button group. An easy way to count the insertion index is to build the app and count the number of separator spaces between each button group/dropdown before the location you want to insert your button.
 
 So with this in mind, `Button1` will be inserted between the first two subgroups in `FontSettingButtons`, and `Button2` will be inserted between the two subgroups in `FontButtons`.
 
-When creating an `onPressed`/`onTap`/`onChanged` method for your widget, you can use `controller.execCommand` or any of the other methods on the controller to perform actions in the editor. 
+When creating an `onPressed`/`onTap`/`onChanged` method for your widget, you can use `controller.execCommand` or any of the other methods on the controller to perform actions in the editor.
 
 Notes:
- 
+
 1. using `controller.editorController.<method>` will do nothing on Web!
 
 2. If you don't provide `customToolbarButtonsInsertionIndices`, the plugin will insert your buttons at the end of the default toolbar list
 
-3. If you provide `customToolbarButtonsInsertionIndices`, it ***must*** be the same length as your `customToolbarButtons` widget list.
+3. If you provide `customToolbarButtonsInsertionIndices`, it **_must_** be the same length as your `customToolbarButtons` widget list.
 
 #### `linkInsertInterceptor`, `mediaLinkInsertInterceptor`, `otherFileLinkInsert`, `mediaUploadInterceptor`, and `onOtherFileUpload`
 
 These callbacks help you intercept any links or files being inserted into the editor.
 
-Parameter | Type | Description
------------- | ------------- | -------------
-**linkInsertInterceptor** | `FutureOr<bool> Function(String, String, bool)` | Intercept any links inserted into the editor. The function passes the display text (`String`), the URL (`String`), and whether it opens a new tab (`bool`).
-**mediaLinkInsertInterceptor** | `FutureOr<bool> Function(String, InsertFileType)` | Intercept any media links inserted into the editor. The function passes the URL (`String`).
-**mediaUploadInterceptor** | `FutureOr<bool> Function(PlatformFile, InsertFileType)` | Intercept any media files inserted into the editor. The function passes `PlatformFile` which holds all relevant file data. You can use this to upload into your server, to extract base64 data, perform file validation, etc. It also passes the file type (image/audio/video).
-**onOtherFileLinkInsert** | `Function(String)` | Intercept file link inserts other than image/audio/video. This handler is required when using the other file button, as the package has no built-in handlers. The function passes the URL (`String`). It also passes the file type (image/audio/video)
-**onOtherFileUpload** | `Function(PlatformFile)` | Intercept file uploads other than image/audio/video. This handler is required when using the other file button, as the package has no built-in handlers. The function passes `PlatformFile` which holds all relevant file data. You can use this to upload into your server, to extract base64 data, perform file validation, etc.
+| Parameter                      | Type                                                    | Description                                                                                                                                                                                                                                                                                                                        |
+| ------------------------------ | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **linkInsertInterceptor**      | `FutureOr<bool> Function(String, String, bool)`         | Intercept any links inserted into the editor. The function passes the display text (`String`), the URL (`String`), and whether it opens a new tab (`bool`).                                                                                                                                                                        |
+| **mediaLinkInsertInterceptor** | `FutureOr<bool> Function(String, InsertFileType)`       | Intercept any media links inserted into the editor. The function passes the URL (`String`).                                                                                                                                                                                                                                        |
+| **mediaUploadInterceptor**     | `FutureOr<bool> Function(PlatformFile, InsertFileType)` | Intercept any media files inserted into the editor. The function passes `PlatformFile` which holds all relevant file data. You can use this to upload into your server, to extract base64 data, perform file validation, etc. It also passes the file type (image/audio/video).                                                    |
+| **onOtherFileLinkInsert**      | `Function(String)`                                      | Intercept file link inserts other than image/audio/video. This handler is required when using the other file button, as the package has no built-in handlers. The function passes the URL (`String`). It also passes the file type (image/audio/video)                                                                             |
+| **onOtherFileUpload**          | `Function(PlatformFile)`                                | Intercept file uploads other than image/audio/video. This handler is required when using the other file button, as the package has no built-in handlers. The function passes `PlatformFile` which holds all relevant file data. You can use this to upload into your server, to extract base64 data, perform file validation, etc. |
 
 For `linkInsertInterceptor`, `mediaLinkInsertInterceptor`, and `mediaUploadInterceptor`, you must return a `bool` to tell the plugin what it should do. When you return false, it assumes that you have handled the user request and taken action. When you return true, the plugin will use the default handlers to handle the user request.
 
@@ -601,10 +605,10 @@ See [below](#example-for-linkinsertinterceptor-medialinkinsertinterceptor-otherf
 
 These callbacks help you intercept any button presses or dropdown changes.
 
-Parameter | Type | Description
------------- | ------------- | -------------
-**onButtonPressed** | `FutureOr<bool> Function(ButtonType, bool?, void Function()?)` | Intercept any button presses. The function passes the enum for the pressed button, the current selected status of the button (if applicable) and a function to update the status (if applicable).
-**onDropdownChanged** | `FutureOr<bool> Function(DropdownType, dynamic, void Function(dynamic)?)` | Intercept any dropdown changes. The function passes the enum for the changed dropdown, the changed value, and a function to update the changed value (if applicable).
+| Parameter             | Type                                                                      | Description                                                                                                                                                                                       |
+| --------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **onButtonPressed**   | `FutureOr<bool> Function(ButtonType, bool?, void Function()?)`            | Intercept any button presses. The function passes the enum for the pressed button, the current selected status of the button (if applicable) and a function to update the status (if applicable). |
+| **onDropdownChanged** | `FutureOr<bool> Function(DropdownType, dynamic, void Function(dynamic)?)` | Intercept any dropdown changes. The function passes the enum for the changed dropdown, the changed value, and a function to update the changed value (if applicable).                             |
 
 You must return a `bool` to tell the plugin what it should do. When you return false, it assumes that you have handled the user request and taken action. When you return true, the plugin will use the default handlers to handle the user request.
 
@@ -660,7 +664,7 @@ Default values: true, true, false, respectively
 
 `processInputHtml` replaces any occurrences of `"` with `\\"`, `'` with `\\'`, and `\r`, `\r\n`, `\n`, and `\n\n` with empty strings. This is necessary to prevent syntax exceptions when inserting HTML into the editor as quotes and other special characters will not be escaped. If you have already sanitized and escaped all relevant characters from your HTML input, it is recommended to set this parameter `false`. You may also want to set this parameter `false` on Web, as in testing it seems these characters are handled correctly by default, but that may not be the case for your HTML.
 
-`processOutputHtml` replaces the output HTML with `""` if: 
+`processOutputHtml` replaces the output HTML with `""` if:
 
 1. It is empty
 
@@ -702,9 +706,9 @@ import 'package:http/http.dart' as http;
         return false;
       },
       mediaUploadInterceptor: (PlatformFile file, InsertFileType type) async {
-        print(file.name); //filename
-        print(file.size); //size in bytes
-        print(file.extension); //MIME type (e.g. image/jpg)
+        debugPrint(file.name); //filename
+        debugPrint(file.size); //size in bytes
+        debugPrint(file.extension); //MIME type (e.g. image/jpg)
         //either upload to server:
         if (file.bytes != null && file.name != null) {
           final request = http.MultipartRequest('POST', Uri.parse("your_server_url"));
@@ -772,12 +776,12 @@ import 'package:http/http.dart' as http;
     controller: controller,
     toolbarOptions: ToolbarOptions(
       onButtonPressed: (ButtonType type, bool? status, Function()? updateStatus) {
-        print("button '${describeEnum(type)}' pressed, the current selected status is $status");
+        debugPrint("button '${describeEnum(type)}' pressed, the current selected status is $status");
         //run a callback and return false and update the status, otherwise
         return true;
       },
       onDropdownChanged: (DropdownType type, dynamic changed, Function(dynamic)? updateSelectedItem) {
-        print("dropdown '${describeEnum(type)}' changed to $changed");
+        debugPrint("dropdown '${describeEnum(type)}' changed to $changed");
         //run a callback and return false and update the changed value, otherwise
         return true;
       },
@@ -801,7 +805,7 @@ class _HtmlEditorExampleState extends State<HtmlEditorExample> {
       onTap: () {
         if (!kIsWeb) {
           // this is extremely important to the example, as it allows the user to tap any blank space outside the webview,
-          // and the webview will lose focus and reset to the original height as expected. 
+          // and the webview will lose focus and reset to the original height as expected.
           controller.clearFocus();
         }
       },
@@ -876,7 +880,7 @@ class _ExampleState extends State<Example> {
                   //save profile details
                }
             ),
-          ]   
+          ]
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -923,7 +927,7 @@ class _ExampleState extends State<Example> {
                  icon: Icon(Icons.edit, size: 35),
                  tooltip: "Edit profile picture",
                  onPressed: () async {
-                    //open gallery and make api call to update profile picture   
+                    //open gallery and make api call to update profile picture
                  }
               ),
               //etc... just a basic form.
@@ -944,34 +948,41 @@ class _ExampleState extends State<Example> {
 
 ```html
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="description" content="Flutter Summernote HTML Editor">
-    <meta name="author" content="tneotia">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="description" content="Flutter Summernote HTML Editor" />
+    <meta name="author" content="tneotia" />
     <title>Summernote Text Editor HTML</title>
     <script src="assets/packages/html_editor_enhanced/assets/jquery.min.js"></script>
-    <link href="assets/packages/html_editor_enhanced/assets/summernote-lite.min.css" rel="stylesheet">
+    <link
+      href="assets/packages/html_editor_enhanced/assets/summernote-lite.min.css"
+      rel="stylesheet"
+    />
     <script src="assets/packages/html_editor_enhanced/assets/summernote-lite.min.js"></script>
     <!--darkCSS-->
-</head>
-<body>
-<div id="summernote-2"></div>
-<!--headString-->
-<!--summernoteScripts-->
-<style>
-  body {
-      display: block;
-      margin: 0px;
-  }
-  .note-editor.note-airframe, .note-editor.note-frame {
-      border: 0px solid #a9a9a9;
-  }
-  .note-frame {
-      border-radius: 0px;
-  }
-</style>
-</body>
+  </head>
+  <body>
+    <div id="summernote-2"></div>
+    <!--headString-->
+    <!--summernoteScripts-->
+    <style>
+      body {
+        display: block;
+        margin: 0px;
+      }
+      .note-editor.note-airframe,
+      .note-editor.note-frame {
+        border: 0px solid #a9a9a9;
+      }
+      .note-frame {
+        border-radius: 0px;
+      }
+    </style>
+  </body>
 </html>
 ```
 
@@ -1038,7 +1049,7 @@ class _ExampleState extends State<Example> {
                           backgroundColor: Colors.blueGrey),
                       onPressed: () async {
                         var result = await controller.evaluateJavascriptWeb("height", hasReturnValue: true);
-                        print(result); // prints "{type: toDart: height, height: 561}"
+                        debugPrint(result); // prints "{type: toDart: height, height: 561}"
                       },
                       child:
                           Text('Get Height', style: TextStyle(color: Colors.white)),
@@ -1070,56 +1081,45 @@ If you do find any issues, please report them in the Issues tab and I will see i
 
 <details><summary>View answered questions</summary>
 
-* How can I display the final output of the editor? - Examples given for both raw HTML output and rendered HTML output - https://github.com/tneotia/html-editor-enhanced/issues/2
+- How can I display the final output of the editor? - Examples given for both raw HTML output and rendered HTML output - https://github.com/tneotia/html-editor-enhanced/issues/2
 
-* How can I set the editor to "fullscreen" by default? - https://github.com/tneotia/html-editor-enhanced/issues/4
+- How can I set the editor to "fullscreen" by default? - https://github.com/tneotia/html-editor-enhanced/issues/4
 
-* The editor does not accept any key inputs when using the iOS Simulator. How can I fix this? - https://github.com/tneotia/html-editor-enhanced/issues/7
+- The editor does not accept any key inputs when using the iOS Simulator. How can I fix this? - https://github.com/tneotia/html-editor-enhanced/issues/7
 
-* Clicking on the editor makes the cursor appear on the second line relative with the hint. Is there a workaround? - https://github.com/tneotia/html-editor-enhanced/issues/24
+- Clicking on the editor makes the cursor appear on the second line relative with the hint. Is there a workaround? - https://github.com/tneotia/html-editor-enhanced/issues/24
 
-* How can I give the editor box a custom background color on mobile? - https://github.com/tneotia/html-editor-enhanced/issues/27
-  
-* I see a file upload button in the top left of my application on Web. How can I remove it? - https://github.com/tneotia/html-editor-enhanced/issues/28
-  
-* I can't tap drawer items above the text editor on Web. How can I fix this? - https://github.com/tneotia/html-editor-enhanced/issues/30
-  
-* How can I remove the "dragbar" at the bottom of the editor? - https://github.com/tneotia/html-editor-enhanced/issues/42
-  
-* How can I detect if an image has been deleted from the editor? - https://github.com/tneotia/html-editor-enhanced/issues/43
-  
-* How can I handle editor focus? - https://github.com/tneotia/html-editor-enhanced/issues/47
-  
-* How can I set the default text direction for the editor content? - https://github.com/tneotia/html-editor-enhanced/issues/49
-  
-* How can I handle relative URLs for images in my initial text? - https://github.com/tneotia/html-editor-enhanced/issues/50
+- How can I give the editor box a custom background color on mobile? - https://github.com/tneotia/html-editor-enhanced/issues/27
+- I see a file upload button in the top left of my application on Web. How can I remove it? - https://github.com/tneotia/html-editor-enhanced/issues/28
+- I can't tap drawer items above the text editor on Web. How can I fix this? - https://github.com/tneotia/html-editor-enhanced/issues/30
+- How can I remove the "dragbar" at the bottom of the editor? - https://github.com/tneotia/html-editor-enhanced/issues/42
+- How can I detect if an image has been deleted from the editor? - https://github.com/tneotia/html-editor-enhanced/issues/43
+- How can I handle editor focus? - https://github.com/tneotia/html-editor-enhanced/issues/47
+- How can I set the default text direction for the editor content? - https://github.com/tneotia/html-editor-enhanced/issues/49
+- How can I handle relative URLs for images in my initial text? - https://github.com/tneotia/html-editor-enhanced/issues/50
 
-* How can I give the editor box a custom background color on web? - https://github.com/tneotia/html-editor-enhanced/issues/57
-  
-* How can I create a toolbar dropdown for custom fonts? - https://github.com/tneotia/html-editor-enhanced/issues/59
-  
-* How can I translate things like dialog text? - https://github.com/tneotia/html-editor-enhanced/issues/69
-  
-* How can I disable copy/paste buttons from the toolbar? - https://github.com/tneotia/html-editor-enhanced/issues/71
-  
-* How can I extract image tag from the editor HTML? - https://github.com/tneotia/html-editor-enhanced/issues/72
+- How can I give the editor box a custom background color on web? - https://github.com/tneotia/html-editor-enhanced/issues/57
+- How can I create a toolbar dropdown for custom fonts? - https://github.com/tneotia/html-editor-enhanced/issues/59
+- How can I translate things like dialog text? - https://github.com/tneotia/html-editor-enhanced/issues/69
+- How can I disable copy/paste buttons from the toolbar? - https://github.com/tneotia/html-editor-enhanced/issues/71
+- How can I extract image tag from the editor HTML? - https://github.com/tneotia/html-editor-enhanced/issues/72
 
-* How can I use LaTeX or math formulas in the editor? - https://github.com/tneotia/html-editor-enhanced/issues/74
+- How can I use LaTeX or math formulas in the editor? - https://github.com/tneotia/html-editor-enhanced/issues/74
 
-* How can I make a custom button outside of the toolbar to make text bold? - https://github.com/tneotia/html-editor-enhanced/issues/81
+- How can I make a custom button outside of the toolbar to make text bold? - https://github.com/tneotia/html-editor-enhanced/issues/81
 
-* How can I style the `<blockquote>` element differently? - https://github.com/tneotia/html-editor-enhanced/issues/83
+- How can I style the `<blockquote>` element differently? - https://github.com/tneotia/html-editor-enhanced/issues/83
 
-* How can I set image width to 100% by default? - https://github.com/tneotia/html-editor-enhanced/issues/86
+- How can I set image width to 100% by default? - https://github.com/tneotia/html-editor-enhanced/issues/86
 
-* How can I override link opening on mobile? - https://github.com/tneotia/html-editor-enhanced/issues/88
+- How can I override link opening on mobile? - https://github.com/tneotia/html-editor-enhanced/issues/88
 
-* How can I set the initial font family in the editor? - https://github.com/tneotia/html-editor-enhanced/issues/125
+- How can I set the initial font family in the editor? - https://github.com/tneotia/html-editor-enhanced/issues/125
 
-* How can I change background color of toolbar only? - https://github.com/tneotia/html-editor-enhanced/issues/94
+- How can I change background color of toolbar only? - https://github.com/tneotia/html-editor-enhanced/issues/94
 
-* How can I pick images from gallery directly without showing the dialog? - https://github.com/tneotia/html-editor-enhanced/issues/97
-  
+- How can I pick images from gallery directly without showing the dialog? - https://github.com/tneotia/html-editor-enhanced/issues/97
+
 </details>
 
 ## License

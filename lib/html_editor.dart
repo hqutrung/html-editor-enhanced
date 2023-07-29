@@ -69,6 +69,7 @@ enum ButtonType {
   picture,
   audio,
   video,
+  code,
   otherFile,
   table,
   hr,
