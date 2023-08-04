@@ -511,28 +511,21 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                   child: PointerInterceptor(
                     child: Text(
                       'Normal',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                      ),
                     ),
                   ),
                 ),
                 CustomDropdownMenuItem(
                   value: 'blockquote',
                   child: PointerInterceptor(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          left: BorderSide(
-                            color: Colors.grey,
-                            width: 3.0,
-                          ),
-                        ),
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(
-                        'Quote',
-                        style: TextStyle(
-                          fontFamily: 'times',
-                          color: Colors.grey,
-                        ),
+                    child: Text(
+                      'Quote',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
@@ -540,17 +533,11 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                 CustomDropdownMenuItem(
                   value: 'pre',
                   child: PointerInterceptor(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.grey),
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(
-                        'Code',
-                        style: TextStyle(
-                          fontFamily: 'courier',
-                          color: Colors.white,
-                        ),
+                    child: Text(
+                      'Code',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
@@ -561,8 +548,8 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     child: Text(
                       'Header 1',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 32,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
@@ -573,8 +560,8 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     child: Text(
                       'Header 2',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
@@ -585,8 +572,8 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     child: Text(
                       'Header 3',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
@@ -597,8 +584,8 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     child: Text(
                       'Header 4',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
@@ -609,8 +596,8 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     child: Text(
                       'Header 5',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
@@ -621,8 +608,8 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     child: Text(
                       'Header 6',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
